@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {toggleTheme, getInitialTheme} from '../../redux/slices';
+import React from 'react';
+import {Text, View} from 'react-native';
 
 const HomeScreen = () => {
-  return <View></View>;
+  return (
+    <View>
+      <Text>HOME</Text>
+    </View>
+  );
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({});
