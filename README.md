@@ -8,6 +8,10 @@ This app is open to contributions, but I recommend to check before the to do lis
 
 ### TODO:
 
+- Repo:
+  - [ ] make better readme
+  - [ ] add CONTRIBUTION.md
+  - [ ] add CONTRIBUTION.md and readme to the server repo
 - Style:
   - [ ] add more style funcs to general styles
   - [ ] add custom logo
