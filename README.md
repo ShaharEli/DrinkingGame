@@ -14,6 +14,7 @@ This app is open to contributions, but I recommend to check before the to do lis
   - [ ] change android bottom btns color
   - [ ] lock to portrait in android
   - [ ] lock to portrait in ios
+  - [ ] add storybook
 - Components:
   - [ ] add loading animation
   - [ ] add notification badge
