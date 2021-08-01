@@ -4,23 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {toggleTheme, getInitialTheme} from '../../redux/slices';
 
 const HomeScreen = () => {
-  const dispatch = useAppDispatch();
-  const {theme, rootStyles, colors} = useAppSelector(state => state.styles);
-
-  useEffect(() => {
-    dispatch(getInitialTheme());
-  }, [dispatch]);
-  return (
-    <View>
-      <Text
-        onPress={() => {
-          dispatch(toggleTheme());
-        }}
-        style={[rootStyles.mt5, {color: colors.font}]}>
-        {theme}
-      </Text>
-    </View>
-  );
+  return <View></View>;
 };
 
 export default HomeScreen;
