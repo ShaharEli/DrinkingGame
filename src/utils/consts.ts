@@ -9,3 +9,6 @@ export const LOGS_TO_IGNORE = [
   'RCTBridge required dispatch_sync to load RCTDevLoadingView. This may lead to deadlocks',
   'SerializableStateInvariantMiddleware took 103ms',
 ];
+export const FLOATING_BTN_SIZE = 100;
+
+export const AVATAR_SIZE = 100;

@@ -2,30 +2,25 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 
 export type PublicStackParamList = {
-    Login: {};
-    Register: {};
+  Login: undefined;
+  Register: undefined;
 };
 
 export type PrivateStackParamList = {
- 
   Home: {};
-
-  };
-  
+};
 
 export type HomeScreenNavigationProp = StackNavigationProp<
-PrivateStackParamList,
+  PrivateStackParamList,
   'Home'
 >;
 
-
-  
-  export type LoginScreenNavigationProp = StackNavigationProp<
+export type LoginScreenNavigationProp = StackNavigationProp<
   PublicStackParamList,
   'Login'
 >;
 
 export type RegisterScreenNavigationProp = StackNavigationProp<
-PublicStackParamList,
+  PublicStackParamList,
   'Register'
 >;

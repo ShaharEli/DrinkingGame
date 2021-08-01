@@ -14,13 +14,16 @@ import {LOGS_TO_IGNORE} from './src/utils';
 import {Provider} from 'react-redux';
 import {store} from './src/redux/store';
 import RoutesContainer from './src/routes/RoutesContainer';
+import ErrorBoundary from './src/screens/ErrorBoundry';
 
 LogBox.ignoreLogs(LOGS_TO_IGNORE);
 
 const App = () => {
   return (
     <Provider store={store}>
-      <RoutesContainer />
+      <ErrorBoundary>
+        <RoutesContainer />
+      </ErrorBoundary>
     </Provider>
   );
 };

@@ -21,8 +21,8 @@ export const font = ({font}: {font: string}): TextStyle => ({
   color: font,
 });
 
-export const bg = ({bg}: {bg: string}): ViewStyle => ({
-  backgroundColor: bg,
+export const bg = ({BG}: {BG: string}): ViewStyle => ({
+  backgroundColor: BG,
 });
 const h2: TextStyle = {
   lineHeight: 64,
@@ -148,6 +148,25 @@ const pe4: ViewStyle = {
 };
 const pe5: ViewStyle = {
   paddingEnd: 5,
+};
+
+const p0: ViewStyle = {
+  padding: 0,
+};
+const p1: ViewStyle = {
+  padding: 2.5,
+};
+const p2: ViewStyle = {
+  padding: 5,
+};
+const p3: ViewStyle = {
+  padding: 10,
+};
+const p4: ViewStyle = {
+  padding: 15,
+};
+const p5: ViewStyle = {
+  padding: 20,
 };
 const pt0: ViewStyle = {
   paddingTop: 0,
@@ -335,9 +354,12 @@ const textAlignCenter: TextStyle = {
 const text: TextStyle = {
   textAlign: 'left',
 };
-
+const fontSize16: TextStyle = {
+  fontSize: 16,
+};
 export default {
   box,
+  fontSize16,
   h1,
   h2,
   h3,
@@ -405,6 +427,12 @@ export default {
   mt2,
   mt3,
   mt4,
+  p0,
+  p1,
+  p2,
+  p3,
+  p4,
+  p5,
   mt5,
   mt6,
   mt7,
