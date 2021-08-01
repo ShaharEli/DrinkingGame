@@ -1,23 +1,23 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {IUser, MaybeUser, PassAndPhone} from '../../types';
+import {IUser, Maybe, PassAndEmail} from '../../types';
 import {
   loginWithToken as initialLogin,
-  register as registerUser,
+  register,
   loginByPass as login,
 } from '../../api';
 
-export const loginWithToken = createAsyncThunk<MaybeUser>(
+export const loginWithToken = createAsyncThunk<Maybe<IUser>>(
   'user/loginWithToken',
   async () => await initialLogin(),
 );
-export const loginWithPass = createAsyncThunk<MaybeUser, PassAndPhone>(
+export const loginWithPass = createAsyncThunk<Maybe<IUser>, PassAndEmail>(
   'user/loginWithPass',
   async payload => await login(payload),
 );
-export const register = createAsyncThunk<MaybeUser, Partial<IUser>>(
-  'user/register',
-  async payload => await registerUser(payload),
+export const registerUser = createAsyncThunk<Maybe<IUser>, Partial<IUser>>(
+  'user/registerUser',
+  async payload => await register(payload),
 );
 
 const userSlice = createSlice({
@@ -37,7 +37,7 @@ const userSlice = createSlice({
       }
       state.loadingAuth = false;
     });
-    builder.addCase(register.fulfilled, (state, action) => {
+    builder.addCase(registerUser.fulfilled, (state, action) => {
       if (action.payload) {
         state.user = action.payload;
         state.isSignedIn = true;
@@ -54,7 +54,7 @@ const userSlice = createSlice({
     builder.addCase(loginWithToken.pending, state => {
       state.loadingAuth = true;
     });
-    builder.addCase(register.pending, state => {
+    builder.addCase(registerUser.pending, state => {
       state.loadingAuth = true;
     });
     builder.addCase(loginWithPass.pending, state => {

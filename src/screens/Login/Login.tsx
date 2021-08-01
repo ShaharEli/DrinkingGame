@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {bg} from '../../styles/themes/general';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {ScrollView} from 'react-native-gesture-handler';
-import {MAX_HEIGHT, phoneReg} from '../../utils';
+import {emailReg, MAX_HEIGHT, phoneReg} from '../../utils';
 import {Divider, Logo, WidthContainer} from '../../styles/styleComponents';
 import OutlinedTextField from '../../components/OutlinedTextField';
 import {loginWithPass} from '../../redux/slices';
@@ -19,25 +19,17 @@ interface Props {
 const Login = ({navigation}: Props) => {
   const dispatch = useAppDispatch();
   const {colors, rootStyles} = useAppSelector(state => state.styles);
-
-  const [phone, setPhone] = useState<string>('');
+  const {t} = useTranslation();
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<ILoginErrors>({});
   const checkErrors = () => {
     let errorOccured;
-    if (phone.length < 10) {
-      setErrors(prev => ({
-        ...prev,
-        phone: 'Phone number missing digits',
-      }));
+    if (!emailReg.test(email)) {
+      setErrors(prev => ({...prev, email: 'Email not valid'}));
       errorOccured = true;
     } else {
-      if (phoneReg.test(phone)) {
-        setErrors(prev => ({...prev, phone: 'Phone not valid'}));
-        errorOccured = true;
-      } else {
-        setErrors(prev => ({...prev, phone: null}));
-      }
+      setErrors(prev => ({...prev, email: null}));
     }
 
     if (password.length < 6) {
@@ -51,7 +43,7 @@ const Login = ({navigation}: Props) => {
 
   const login = async () => {
     if (checkErrors()) return;
-    dispatch(loginWithPass({phone, password}));
+    dispatch(loginWithPass({email, password}));
   };
   return (
     <KeyboardAvoidingView
@@ -70,16 +62,16 @@ const Login = ({navigation}: Props) => {
           <Divider m={20} />
           <WidthContainer>
             <OutlinedTextField
-              label={'phone'}
-              keyboardType="phone-pad"
-              onChangeText={setPhone}
-              error={errors?.phone}
+              label={t('email')}
+              keyboardType="email-address"
+              onChangeText={setEmail}
+              error={errors?.email}
             />
           </WidthContainer>
           <Divider m={15} />
           <WidthContainer>
             <OutlinedTextField
-              label={'password'}
+              label={t('password')}
               onChangeText={setPassword}
               error={errors?.password}
               secureTextEntry
@@ -88,7 +80,7 @@ const Login = ({navigation}: Props) => {
         </View>
         <Divider m={15} />
         <View style={rootStyles.mb5}>
-          <MainBtn onPress={login}>Sign in</MainBtn>
+          <MainBtn onPress={login}>{t('login')}</MainBtn>
           <View
             style={[
               rootStyles.flexRow,
@@ -101,12 +93,12 @@ const Login = ({navigation}: Props) => {
                 rootStyles.me1,
                 rootStyles.fontSize16,
               ]}>
-              Not with us?
+              {t('notWithUs')}
             </Text>
             <Text
               onPress={() => navigation.navigate('Register')}
               style={[{color: colors.GREEN_PRIMARY}, rootStyles.fontSize16]}>
-              register
+              {t('register')}
             </Text>
           </View>
         </View>
@@ -116,5 +108,3 @@ const Login = ({navigation}: Props) => {
 };
 
 export default Login;
-
-const styles = StyleSheet.create({});

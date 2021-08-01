@@ -1,6 +1,6 @@
-import {MaybeString} from '.';
+import {Maybe} from '.';
 
 export interface ILoginErrors {
-  phone?: MaybeString;
-  password?: MaybeString;
+  email?: Maybe<string>;
+  password?: Maybe<string>;
 }

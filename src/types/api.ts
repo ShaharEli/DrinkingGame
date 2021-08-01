@@ -1,4 +1,5 @@
-import { IUser } from "./user";
+import {Maybe} from '.';
+import {IUser} from './user';
 
 export interface FetchOptions {
   method: string;
@@ -22,15 +23,14 @@ declare global {
   }
 }
 
-export type MaybeUser = IUser|null
-export type LoginReturnType=Promise<MaybeUser>
-export interface PassAndPhone{
-    password:string,
-    phone:string
+export type LoginReturnType = Promise<Maybe<IUser>>;
+export interface PassAndEmail {
+  password: string;
+  email: string;
 }
-export interface Tokens{
-    accessToken: string
-    refreshToken:string
+export interface Tokens {
+  accessToken: string;
+  refreshToken: string;
 }
 
-export type UserAndTokens={user:IUser} & Tokens
+export type UserAndTokens = {user: IUser} & Tokens;

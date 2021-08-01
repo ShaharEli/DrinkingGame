@@ -3,7 +3,7 @@ import Snackbar from 'react-native-snackbar';
 import {
   IUser,
   LoginReturnType,
-  PassAndPhone,
+  PassAndEmail,
   Tokens,
   UserAndTokens,
 } from '../types';
@@ -51,7 +51,7 @@ export const getAccessToken = async () => {
   return accessToken;
 };
 
-export const loginByPass = async (payload: PassAndPhone): LoginReturnType => {
+export const loginByPass = async (payload: PassAndEmail): LoginReturnType => {
   try {
     const {user, accessToken, refreshToken} = await publicFetch<UserAndTokens>(
       `${BASE}/login`,
