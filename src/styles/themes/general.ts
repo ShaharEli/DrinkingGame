@@ -1,4 +1,5 @@
 import {TextStyle, ViewStyle} from 'react-native';
+import {Colors} from '../../types';
 
 export const fontSize = {
   h1: 56,
@@ -15,6 +16,14 @@ const h1: TextStyle = {
   fontSize: fontSize.h1,
   fontWeight: '700',
 };
+
+export const font = ({font}: {font: string}): TextStyle => ({
+  color: font,
+});
+
+export const bg = ({bg}: {bg: string}): ViewStyle => ({
+  backgroundColor: bg,
+});
 const h2: TextStyle = {
   lineHeight: 64,
   fontSize: fontSize.h2,
@@ -370,6 +379,7 @@ export default {
   pt1,
   pt2,
   pt3,
+
   pt4,
   pt5,
   pb0,
