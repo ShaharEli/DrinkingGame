@@ -13,14 +13,14 @@ import {LogBox} from 'react-native';
 import {LOGS_TO_IGNORE} from './src/utils';
 import {Provider} from 'react-redux';
 import {store} from './src/redux/store';
-import HomeScreen from './src/screens/HomeScreen/HomeScreen';
+import RoutesContainer from './src/routes/RoutesContainer';
 
 LogBox.ignoreLogs(LOGS_TO_IGNORE);
 
 const App = () => {
   return (
     <Provider store={store}>
-      <HomeScreen />
+      <RoutesContainer />
     </Provider>
   );
 };

@@ -14,5 +14,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': 0,
     '@typescript-eslint/no-unused-vars': 2,
     '@typescript-eslint/ban-ts-ignore': 0,
+    'prefer-template': 3,
   },
 };

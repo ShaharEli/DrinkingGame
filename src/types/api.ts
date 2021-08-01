@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export interface FetchOptions {
   method: string;
   mode: string;
@@ -19,3 +21,16 @@ declare global {
     parse(text: string, reviver?: (key: any, value: any) => any): any;
   }
 }
+
+export type MaybeUser = IUser|null
+export type LoginReturnType=Promise<MaybeUser>
+export interface PassAndPhone{
+    password:string,
+    phone:string
+}
+export interface Tokens{
+    accessToken: string
+    refreshToken:string
+}
+
+export type UserAndTokens={user:IUser} & Tokens

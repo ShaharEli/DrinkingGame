@@ -1,6 +1,12 @@
 import {Platform} from 'react-native';
 import Snackbar from 'react-native-snackbar';
-import {IUser} from '../types';
+import {
+  IUser,
+  LoginReturnType,
+  PassAndPhone,
+  Tokens,
+  UserAndTokens,
+} from '../types';
 import {logger} from '../utils';
 import {getItem, setItem} from '../utils';
 import {publicFetch} from './publicFetch';
@@ -34,38 +40,41 @@ export const logErrorToService = async (error: Error, info: string) => {
 
 export const getAccessToken = async () => {
   const refreshToken = await getRefreshOrThrow();
-  const {accessToken} = await publicFetch(`${BASE}/get-token`, 'POST', {
-    refreshToken,
-  });
+  const {accessToken} = await publicFetch<Pick<Tokens, 'accessToken'>>(
+    `${BASE}/get-token`,
+    'POST',
+    {
+      refreshToken,
+    },
+  );
   await setItem('accessToken', accessToken);
   return accessToken;
 };
 
-export const loginByPass = async (phone: string, password: string) => {
+export const loginByPass = async (payload: PassAndPhone): LoginReturnType => {
   try {
-    const {user, accessToken, refreshToken} = await publicFetch(
+    const {user, accessToken, refreshToken} = await publicFetch<UserAndTokens>(
       `${BASE}/login`,
       'POST',
-      {phone, password},
+      payload,
     );
     await setItem('accessToken', accessToken);
     await setItem('refreshToken', refreshToken);
     await setItem('currUser', user);
-    const privateKey = await getItem(`privateKey@${user._id}`);
-    return {...user, privateKey};
+    return user;
   } catch ({error}) {
     Snackbar.show({
       text: error,
       duration: Snackbar.LENGTH_SHORT,
     });
     logger.error(error); //TODO uncomment
-    return false;
+    return null;
   }
 };
 
-export const register = async (payload: Partial<IUser>) => {
+export const register = async (payload: Partial<IUser>): LoginReturnType => {
   try {
-    const {user, accessToken, refreshToken} = await publicFetch(
+    const {user, accessToken, refreshToken} = await publicFetch<UserAndTokens>(
       `${BASE}/register`,
       'POST',
       payload,
@@ -73,7 +82,6 @@ export const register = async (payload: Partial<IUser>) => {
     await setItem('accessToken', accessToken);
     await setItem('refreshToken', refreshToken);
     await setItem('currUser', user);
-
     return user;
   } catch ({error}) {
     Snackbar.show({
@@ -81,23 +89,21 @@ export const register = async (payload: Partial<IUser>) => {
       duration: Snackbar.LENGTH_SHORT,
     });
     logger.error(error);
-    return false;
+    return null;
   }
 };
 
-export const loginWithToken = async () => {
+export const loginWithToken = async (): LoginReturnType => {
   try {
     const refreshToken = await getRefreshOrThrow();
-    const {accessToken, user} = await publicFetch(
-      `${BASE}/login-with-token`,
-      'POST',
-      {refreshToken},
-    );
+    const {accessToken, user} = await publicFetch<
+      Pick<UserAndTokens, 'user' | 'accessToken'>
+    >(`${BASE}/login-with-token`, 'POST', {refreshToken});
     await setItem('accessToken', accessToken);
     await setItem('currUser', user);
     return user;
   } catch ({message}) {
-    logger.error(message); //TODO uncomment
-    return false;
+    // logger.error(message); //TODO uncomment
+    return null;
   }
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -11,9 +10,8 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(getInitialTheme());
   }, [dispatch]);
-  console.log(theme);
   return (
-    <View style={{backgroundColor: colors.bg, marginTop: 100}}>
+    <View>
       <Text
         onPress={() => {
           dispatch(toggleTheme());

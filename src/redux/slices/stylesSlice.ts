@@ -26,7 +26,7 @@ export const toggleTheme = createAsyncThunk<Theme>(
 const styleSlice = createSlice({
   name: 'style',
   initialState: {
-    loading: true,
+    loadingTheme: true,
     ...getTheme(DEFAULT_THEME),
   },
   reducers: {},
@@ -36,10 +36,10 @@ const styleSlice = createSlice({
       const {theme, colors} = getTheme(action.payload);
       state.colors = colors;
       state.theme = theme;
-      state.loading = false;
+      state.loadingTheme = false;
     });
     builder.addCase(getInitialTheme.rejected, state => {
-      state.loading = false;
+      state.loadingTheme = false;
     });
     builder.addCase(toggleTheme.fulfilled, (state, action) => {
       const {theme, colors} = getTheme(action.payload);
