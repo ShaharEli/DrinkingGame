@@ -1,20 +1,23 @@
 # Drinking Game app
 
+#### [Server repo](https://github.com/ShaharEli/drinkingGameServer)
+
 ## Contribution
 
 This app is open to contributions, but I recommend to check before the to do list and add issue with what you working on.
-
-Please read CONTRIBUTING.md for details on this project.
-
-#### [Server repo](https://github.com/ShaharEli/drinkingGameServer)
 
 ### TODO:
 
 - Style:
   - [ ] add more style funcs to general styles
   - [ ] add custom logo
+  - [ ] change android bottom btns color
+  - [ ] lock to portrait in android
+  - [ ] lock to portrait in ios
 - Components:
   - [ ] add loading animation
+  - [ ] add notification badge
+  - [ ] add underline textfield
 - Social:
   - Add more dares suggestions here [dares seeder](https://drinkinggameseeder.herokuapp.com/)
   - [ ] Add deep linking support to ios
@@ -24,6 +27,9 @@ Please read CONTRIBUTING.md for details on this project.
   - [ ] add yup validation to login and register
   - [ ] add dirty images detection
   - [ ] add dirty words detection
-- Notifications
+- Workflow:
+  - [ ] add github workflow for building the app and saving it to the artifacts
+- Assets:
+  - [ ] use react-native-fs to manage saved assets
 - Languages:
   - [ ] Add more languages
