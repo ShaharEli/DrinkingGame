@@ -13,6 +13,7 @@ This app is open to contributions, but I recommend to check before the to do lis
   - [ ] add CONTRIBUTION.md
   - [ ] add CONTRIBUTION.md and readme to the server repo
 - Style:
+  - [ ] Figma / Zeppelin design
   - [ ] add more style funcs to general styles
   - [ ] add custom logo
   - [ ] change android bottom btns color
@@ -38,3 +39,4 @@ This app is open to contributions, but I recommend to check before the to do lis
   - [ ] use react-native-fs to manage saved assets
 - Languages:
   - [ ] Add more languages
+  - [ ] Add errors translations

@@ -7,7 +7,8 @@ export type PublicStackParamList = {
 };
 
 export type PrivateStackParamList = {
-  Home: {};
+  Home: undefined;
+  Game: undefined;
 };
 
 export type HomeScreenNavigationProp = StackNavigationProp<

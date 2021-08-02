@@ -19,6 +19,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {bg} from '../../styles/themes/general';
 import {registerUser} from '../../redux/slices';
 import {useTranslation} from 'react-i18next';
+import {Lang} from '../../types';
 
 export default function Register() {
   const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ export default function Register() {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
 
   const fields = useMemo(
     () => [
@@ -98,6 +99,7 @@ export default function Register() {
       email,
       firstName,
       lastName,
+      language: i18n.language as Lang,
     };
     dispatch(registerUser(payload));
   };

@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Image, StyleSheet, ViewStyle} from 'react-native';
+import {View, Image, StyleSheet, ViewStyle, TextStyle} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useAppSelector} from '../hooks';
 import {assets, AVATAR_SIZE, MAX_WIDTH} from '../utils';
 import {bg} from './themes/general';
@@ -7,11 +8,7 @@ import {bg} from './themes/general';
 export function WidthContainer({children}: {children: Element}) {
   const {rootStyles} = useAppSelector(state => state.styles);
   return (
-    <View
-      style={[
-        {width: MAX_WIDTH * 0.9, maxWidth: 350},
-        rootStyles.alignSelfCenter,
-      ]}>
+    <View style={[localStyles.widthContainer, rootStyles.alignSelfCenter]}>
       {children}
     </View>
   );
@@ -80,22 +77,41 @@ export function Logo({
   );
 }
 interface ScreenWrapperProps {
-  children: React.FC;
-  style: ViewStyle;
+  children: Element;
+  style?: ViewStyle;
+  withTop?: boolean;
 }
-export const ScreenWrapper = ({children, style = {}}: ScreenWrapperProps) => {
+export const ScreenWrapper = ({
+  children,
+  style = {},
+  withTop = true,
+}: ScreenWrapperProps) => {
+  const {top} = useSafeAreaInsets();
+
   const {colors, rootStyles} = useAppSelector(state => state.styles);
-  return <View style={[bg(colors), rootStyles.flex1, style]}>{children}</View>;
+  const getTop = (top: number) => ({paddingTop: top});
+
+  return (
+    <View
+      style={[
+        bg(colors),
+        rootStyles.flex1,
+        style,
+        getTop(withTop ? top : 0) as TextStyle,
+      ]}>
+      {children}
+    </View>
+  );
 };
 
-interface ScreenWrapperProps {
+interface CircleWrapperProps {
   children: React.FC;
   size: number;
 }
 export const CircleWrapper = ({
   children,
   size = AVATAR_SIZE,
-}: ScreenWrapperProps) => {
+}: CircleWrapperProps) => {
   const {colors, rootStyles} = useAppSelector(state => state.styles);
   return (
     <View
@@ -108,3 +124,7 @@ export const CircleWrapper = ({
     </View>
   );
 };
+
+const localStyles = StyleSheet.create({
+  widthContainer: {width: MAX_WIDTH * 0.9, maxWidth: 350},
+});

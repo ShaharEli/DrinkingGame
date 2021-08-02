@@ -39,16 +39,18 @@ export const logErrorToService = async (error: Error, info: string) => {
 };
 
 export const getAccessToken = async () => {
-  const refreshToken = await getRefreshOrThrow();
-  const {accessToken} = await publicFetch<Pick<Tokens, 'accessToken'>>(
-    `${BASE}/get-token`,
-    'POST',
-    {
-      refreshToken,
-    },
-  );
-  await setItem('accessToken', accessToken);
-  return accessToken;
+  try {
+    const refreshToken = await getRefreshOrThrow();
+    const {accessToken} = await publicFetch<Pick<Tokens, 'accessToken'>>(
+      `${BASE}/get-token`,
+      'POST',
+      {
+        refreshToken,
+      },
+    );
+    await setItem('accessToken', accessToken);
+    return accessToken;
+  } catch {}
 };
 
 export const loginByPass = async (payload: PassAndEmail): LoginReturnType => {
@@ -83,12 +85,12 @@ export const register = async (payload: Partial<IUser>): LoginReturnType => {
     await setItem('refreshToken', refreshToken);
     await setItem('currUser', user);
     return user;
-  } catch ({error}) {
+  } catch (e) {
     Snackbar.show({
-      text: error,
+      text: e.error,
       duration: Snackbar.LENGTH_SHORT,
     });
-    logger.error(error);
+    logger.error(e);
     return null;
   }
 };

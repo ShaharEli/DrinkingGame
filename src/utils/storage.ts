@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import {Lang, Theme} from '../types';
 import {DEFAULT_LANG, DEFAULT_THEME} from './consts';
+import {logger} from './logger';
 
 export async function getAppLanguage(): Promise<Lang> {
   try {
@@ -39,7 +40,7 @@ export async function setAppLanguage(lang: Lang): Promise<Lang> {
   try {
     await AsyncStorage.setItem('language', lang);
   } catch ({message}) {
-    console.log(message);
+    logger.error(message);
   }
   return lang;
 }

@@ -1,4 +1,4 @@
-import {Dimensions} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 export const MAX_WIDTH = width;
@@ -13,3 +13,22 @@ export const LOGS_TO_IGNORE = [
 export const FLOATING_BTN_SIZE = 100;
 
 export const AVATAR_SIZE = 100;
+
+export function isIphoneWithNotch() {
+  const dimen = Dimensions.get('window');
+  return (
+    Platform.OS === 'ios' &&
+    !Platform.isPad &&
+    !Platform.isTVOS &&
+    (dimen.height === 780 ||
+      dimen.width === 780 ||
+      dimen.height === 812 ||
+      dimen.width === 812 ||
+      dimen.height === 844 ||
+      dimen.width === 844 ||
+      dimen.height === 896 ||
+      dimen.width === 896 ||
+      dimen.height === 926 ||
+      dimen.width === 926)
+  );
+}

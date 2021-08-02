@@ -3,4 +3,4 @@ export const emailReg =
 
 export const phoneReg = /[a-z]/gi;
 
-export const onlyLettersReg = /[a-z]/gi;
+export const onlyLettersReg = /^[a-z\u0590-\u05fe]+$/i;
