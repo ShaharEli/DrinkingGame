@@ -1,12 +1,12 @@
 import {apiHostWithVersion} from '../bin/index';
 import {getAccessToken} from './auth';
 import securedFetch from './privateFetch';
-import {FetchOptions} from '../types';
+import {FetchOptions, Maybe} from '../types';
 
 export async function publicFetch<T>(
   path: string,
   method = 'GET',
-  body: Record<string, any>,
+  body?: Maybe<Record<string, any>>,
 ): Promise<T> {
   const fetchOptions: RequestInit & Pick<FetchOptions, 'cache'> = {
     method,

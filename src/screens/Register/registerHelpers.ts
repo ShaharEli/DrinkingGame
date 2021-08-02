@@ -11,7 +11,7 @@ export const checkErrors = (
   firstName: string,
   lastName: string,
 ): boolean => {
-  let errorOccured;
+  let errorOccured = false;
   if (password.length < 6) {
     setErrors(prev => ({...prev, password: 'Password too short'}));
     errorOccured = true;

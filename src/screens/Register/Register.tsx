@@ -64,7 +64,7 @@ export default function Register() {
         secureTextEntry: true,
       },
     ],
-    [errors],
+    [errors, t],
   );
 
   useEffect(() => {
@@ -77,6 +77,7 @@ export default function Register() {
         firstName,
         lastName,
       );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password, repeatedPassword, email, firstName, lastName]);
 
   const registerNewUser = async () => {
@@ -124,7 +125,7 @@ export default function Register() {
                   includeBase64: true,
                   cropperCircleOverlay: true,
                 })
-                  .then(image => {
+                  .then((image: any) => {
                     setImg(`data:${image.mime};base64,${image.data}`);
                   })
                   .catch(({message}) => logger.warn(message));
@@ -170,14 +171,15 @@ export default function Register() {
         </View>
         <View style={rootStyles.my5}>
           <MainBtn loading={loadingAuth} onPress={registerNewUser}>
-            Register
+            {t('register')}
           </MainBtn>
           <View
             style={[
               rootStyles.flexRow,
               rootStyles.alignSelfCenter,
               rootStyles.mt5,
-            ]}></View>
+            ]}
+          />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

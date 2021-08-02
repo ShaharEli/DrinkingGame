@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native';
+import {KeyboardAvoidingView, Text, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import Icon from 'react-native-vector-icons/AntDesign';
 import {bg} from '../../styles/themes/general';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {ScrollView} from 'react-native-gesture-handler';
-import {emailReg, MAX_HEIGHT, phoneReg} from '../../utils';
+import {emailReg, MAX_HEIGHT} from '../../utils';
 import {Divider, Logo, WidthContainer} from '../../styles/styleComponents';
 import OutlinedTextField from '../../components/OutlinedTextField';
 import {loginWithPass} from '../../redux/slices';
