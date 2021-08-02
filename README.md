@@ -20,6 +20,8 @@ This app is open to contributions, but I recommend to check before the to do lis
   - [ ] lock to portrait in android
   - [ ] lock to portrait in ios
   - [ ] add storybook
+- Navigation:
+  - [ ] Migration to react natvigation X6
 - Components:
   - [ ] add loading animation
   - [ ] add notification badge
