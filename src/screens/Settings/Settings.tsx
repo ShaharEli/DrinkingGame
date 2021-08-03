@@ -32,7 +32,7 @@ const Settings = (): JSX.Element => {
 
   return (
     <ScreenWrapper>
-      <Text style={font(colors)}>Change language</Text>
+      <Text style={font(colors)}>Change languages</Text>
       <DropDownPicker
         value={value}
         items={languagesValues}
