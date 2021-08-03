@@ -8,32 +8,38 @@ import {
   ViewStyle,
 } from 'react-native';
 import {useAppSelector} from '../hooks';
+import {Maybe} from '../types';
 
 interface Props {
   style?: ViewStyle;
   textStyle?: TextStyle;
   onPress: () => void;
   loading?: boolean;
-  children: Element;
+  children?: Maybe<string | undefined> | Maybe<string | undefined>[];
+  disabled?: boolean;
 }
 
 export default function MainBtn({
-  style,
+  style = {},
   onPress,
   children,
   textStyle,
   loading,
-}: Props) {
+  disabled = false,
+}: Props): JSX.Element {
   const {colors, rootStyles} = useAppSelector(state => state.styles);
+
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={loading || disabled}
       style={[
         rootStyles.box,
         {backgroundColor: colors.GREEN_PRIMARY},
         rootStyles.alignSelfCenter,
-        style,
         styles.container,
+        disabled ? {backgroundColor: colors.INACTIVE_TINT} : {},
+        style,
       ]}>
       {loading ? (
         <ActivityIndicator size="small" color={colors.BG} />
@@ -42,8 +48,8 @@ export default function MainBtn({
           style={[
             {color: colors.BG},
             rootStyles.p1,
-            textStyle,
             rootStyles.fontSize16,
+            textStyle,
           ]}>
           {children}
         </Text>

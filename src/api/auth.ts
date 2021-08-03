@@ -124,3 +124,17 @@ export const editUser = async (payload: Partial<IUser>): LoginReturnType => {
     return null;
   }
 };
+
+export const checkUserName = async (userName: string): Promise<boolean> => {
+  try {
+    const {ok} = await securedFetch<Record<'ok', boolean>>(
+      `${BASE}/check-username`,
+      'POST',
+      {userName},
+    );
+    return ok;
+  } catch ({message}) {
+    logger.error(message);
+    return false;
+  }
+};

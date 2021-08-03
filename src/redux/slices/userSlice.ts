@@ -5,6 +5,7 @@ import {
   loginWithToken as initialLogin,
   register,
   loginByPass as login,
+  editUser,
 } from '../../api';
 
 export const loginWithToken = createAsyncThunk<Maybe<IUser>>(
@@ -18,6 +19,11 @@ export const loginWithPass = createAsyncThunk<Maybe<IUser>, PassAndEmail>(
 export const registerUser = createAsyncThunk<Maybe<IUser>, Partial<IUser>>(
   'user/registerUser',
   async payload => await register(payload),
+);
+
+export const editUserData = createAsyncThunk<Maybe<IUser>, Partial<IUser>>(
+  'user/editUserData',
+  async payload => await editUser(payload),
 );
 
 const userSlice = createSlice({
@@ -51,6 +57,13 @@ const userSlice = createSlice({
       }
       state.loadingAuth = false;
     });
+
+    builder.addCase(editUserData.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.user = action.payload;
+      }
+      state.loadingAuth = false;
+    });
     builder.addCase(loginWithToken.pending, state => {
       state.loadingAuth = true;
     });
@@ -58,6 +71,10 @@ const userSlice = createSlice({
       state.loadingAuth = true;
     });
     builder.addCase(loginWithPass.pending, state => {
+      state.loadingAuth = true;
+    });
+
+    builder.addCase(editUserData.pending, state => {
       state.loadingAuth = true;
     });
   },

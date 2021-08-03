@@ -12,6 +12,8 @@ export interface IUser {
   socketId: string;
   email: string;
   language: Lang;
+  userName: string;
   firebaseToken?: string;
   role?: string;
+  blocked?: IUser[] | string[];
 }

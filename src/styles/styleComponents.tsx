@@ -8,12 +8,19 @@ import {bg} from './themes/general';
 
 export function WidthContainer({
   children,
+  style,
 }: {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
+  style?: ViewStyle;
 }): JSX.Element {
   const {rootStyles} = useAppSelector(state => state.styles);
   return (
-    <View style={[localStyles.widthContainer, rootStyles.alignSelfCenter]}>
+    <View
+      style={[
+        localStyles.widthContainer,
+        rootStyles.alignSelfCenter,
+        style || {},
+      ]}>
       {children}
     </View>
   );

@@ -1,19 +1,25 @@
 import React, {useMemo, useState} from 'react';
-import {Text} from 'react-native';
-import {ScreenWrapper} from '../../styles/styleComponents';
+import {ScreenWrapper, WidthContainer} from '../../styles/styleComponents';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {useAppSelector} from '../../hooks';
-import {font} from '../../styles/themes/general';
+import {useAppDispatch, useAppSelector, useDebounce} from '../../hooks';
 import MainBtn from '../../components/MainBtn';
-import {Lang, Maybe} from '../../types';
+import {Color, Lang, Maybe} from '../../types';
 import {useTranslation} from 'react-i18next';
 import {switchLanguage} from '../../i18n';
+import {editUserData, toggleTheme} from '../../redux/slices';
+import Txt from '../../components/Txt';
+import {StyleSheet} from 'react-native';
+import OutlinedTextField from '../../components/OutlinedTextField';
+import {checkUserName} from '../../api';
+import {useEffect} from 'react';
 
 const Settings = (): JSX.Element => {
-  const {colors} = useAppSelector(state => state.styles);
-  const {user} = useAppSelector(state => state.user);
+  const {rootStyles, theme, colors} = useAppSelector(state => state.styles);
+  const {user, loadingAuth} = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<Maybe<Lang>>(user.language);
+  const [userName, setUserName] = useState(user.userName);
   const {t} = useTranslation();
 
   const languagesValues = useMemo(
@@ -30,25 +36,99 @@ const Settings = (): JSX.Element => {
     }
   };
 
+  const {debouncedValue, loading, setArgValue} = useDebounce<
+    string,
+    Promise<boolean> | boolean
+  >(userName, true, checkUserName, 500, newData => newData.length > 5);
+
+  useEffect(() => {
+    setArgValue(user.userName);
+    setUserName(user.userName);
+  }, [user, setArgValue]);
+
+  const userNameError = useMemo<boolean>(
+    () =>
+      (!loading && userName !== user.userName && !debouncedValue) ||
+      userName.length < 6,
+    [userName, debouncedValue, user, loading],
+  );
+  const userNameValid = useMemo<boolean>(
+    () => !userNameError && userName !== user.userName,
+    [userNameError, userName, user],
+  );
+
   return (
     <ScreenWrapper>
-      <Text style={font(colors)}>Change language</Text>
-      <DropDownPicker
-        value={value}
-        items={languagesValues}
-        open={open}
-        setOpen={setOpen}
-        setValue={setValue}
-        onChangeValue={onLanguageChange}
-      />
+      <WidthContainer style={rootStyles.my3}>
+        <Txt style={[rootStyles.mb3, rootStyles.h3]}>{t('settings')}</Txt>
+      </WidthContainer>
+
       <MainBtn
+        style={{...rootStyles.alignSelfStart, ...rootStyles.ms5}}
         onPress={() => {
-          null;
+          dispatch(toggleTheme());
         }}>
-        Change theme
+        {t('toggleTheme', {theme: t(theme === 'dark' ? 'light' : 'dark')})}
       </MainBtn>
+      <WidthContainer
+        style={{
+          ...rootStyles.my5,
+          ...rootStyles.flexRow,
+          ...rootStyles.alignCenter,
+        }}>
+        <OutlinedTextField
+          label={t('userName')}
+          containerStyle={rootStyles.flex1}
+          onChangeText={e => {
+            setArgValue(e);
+            setUserName(e);
+          }}
+          tintColor={userNameValid && (colors.GREEN as Color)}
+          error={
+            userNameError
+              ? userName.length < 6
+                ? t('tooShort', {arg: t('userName')})
+                : t('userNameInUse')
+              : null
+          }
+          value={userName}
+        />
+        <MainBtn
+          style={styles.changeUserNameBtn}
+          textStyle={styles.changeUserNameTxt}
+          disabled={!userNameValid}
+          onPress={() => dispatch(editUserData({userName}))}
+          loading={loading || loadingAuth}>
+          {t('changeUserName')}
+        </MainBtn>
+      </WidthContainer>
+      <WidthContainer style={rootStyles.my5}>
+        <DropDownPicker
+          theme={theme.toUpperCase()}
+          value={value}
+          items={languagesValues}
+          listItemLabelStyle={styles.labelStyle}
+          open={open}
+          setOpen={setOpen}
+          setValue={setValue}
+          labelStyle={styles.labelStyle}
+          onChangeValue={onLanguageChange}
+        />
+      </WidthContainer>
     </ScreenWrapper>
   );
 };
 
 export default Settings;
+
+const styles = StyleSheet.create({
+  labelStyle: {textAlign: 'left'},
+  changeUserNameBtn: {
+    width: 100,
+    marginStart: 5,
+    borderRadius: 10,
+    marginBottom: 5,
+  },
+
+  changeUserNameTxt: {fontSize: 10},
+});

@@ -1,19 +1,21 @@
 import React from 'react';
-import {Text, TextProps} from 'react-native';
+import {Text, View, ViewStyle} from 'react-native';
 import {useAppSelector} from '../hooks';
 
 interface Props {
   cond: boolean;
-  children: React.FC;
-  message: string;
-  onPress: () => void;
+  children: JSX.Element;
+  message?: string;
+  onPress?: () => void;
+  style?: ViewStyle;
 }
 
 export default function If({
   cond,
   children,
   message,
-  onPress = () => {},
+  style = {},
+  onPress = () => null,
 }: Props) {
   const {rootStyles, colors} = useAppSelector(state => state.styles);
 
@@ -27,7 +29,7 @@ export default function If({
         </Text>
       );
     }
-    return null;
+    return style ? <View style={style} /> : null;
   }
 
   return <>{children}</>;

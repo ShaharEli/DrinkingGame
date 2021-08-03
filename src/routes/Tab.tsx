@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabsParamList} from '../types';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import HomeScreen from '../screens/Home/Home';
 import Social from '../screens/Social/Social';
 import Settings from '../screens/Settings/Settings';
 import {useAppSelector} from '../hooks';
@@ -12,14 +12,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 const BottomTabNavigator = createBottomTabNavigator<TabsParamList>();
 
 const Tab = (): JSX.Element => {
-  const {colors, rootStyles} = useAppSelector(state => state.styles);
+  const {colors} = useAppSelector(state => state.styles);
 
   return (
     <BottomTabNavigator.Navigator
       tabBarOptions={{
         style: {backgroundColor: colors.HEADER},
-        labelStyle: {...rootStyles.mb1},
         activeTintColor: colors.INDICATOR,
+        showLabel: false,
       }}>
       <BottomTabNavigator.Screen
         name="Home"

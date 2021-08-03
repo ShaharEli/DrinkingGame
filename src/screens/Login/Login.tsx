@@ -10,6 +10,7 @@ import OutlinedTextField from '../../components/OutlinedTextField';
 import {loginWithPass} from '../../redux/slices';
 import {ILoginErrors, LoginScreenNavigationProp} from '../../types';
 import MainBtn from '../../components/MainBtn';
+import Txt from '../../components/Txt';
 
 interface Props {
   navigation: LoginScreenNavigationProp;
@@ -86,14 +87,14 @@ const Login = ({navigation}: Props) => {
               rootStyles.alignSelfCenter,
               rootStyles.mt5,
             ]}>
-            <Text
+            <Txt
               style={[
                 {color: colors.GREY},
                 rootStyles.me1,
                 rootStyles.fontSize16,
               ]}>
               {t('notWithUs')}
-            </Text>
+            </Txt>
             <Text
               onPress={() => navigation.navigate('Register')}
               style={[{color: colors.GREEN_PRIMARY}, rootStyles.fontSize16]}>

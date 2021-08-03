@@ -1,15 +1,1 @@
-{
-  "translation": {
-    "login": "התחבר",
-    "register": "הרשם",
-    "email": "אימייל",
-    "password": "ססמא",
-    "notWithUs": "לא איתנו?",
-    "firstName": "שם פרטי",
-    "lastName": "שם משפחה",
-    "verifyPass": "חזור על הססמא",
-    "hello": "שלום",
-    "en": "אנגלית",
-    "he": "עברית"
-  }
-}
+{"translation":{"login":"התחבר","register":"הרשם","email":"אימייל","password":"ססמא","notWithUs":"לא איתנו?","firstName":"שם פרטי","lastName":"שם משפחה","verifyPass":"חזור על הססמא","hello":"שלום","en":"אנגלית","he":"עברית","settings":"הגדרות","toggleTheme":"שנה ערכת נושא ל{{theme}}","light":"בהיר","dark":"כהה","changeLang":"שנה שפה","userName":"שם משתמש","tooShort":"{{arg}} קצר מדי","userNameInUse":"שם משתמש בשימוש","changeUserName":"שנה שם משתמש"}}

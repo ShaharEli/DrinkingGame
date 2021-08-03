@@ -11,10 +11,10 @@ export default {
     BG: '#111C23',
     sideBar: '#242526',
     textInput: 'white',
-    font: 'white',
+    font: '#808080',
     LIGHT_GREY_BG: '#f4f4f7',
     PRIMARY: '#4d3db9',
-    SECONDARY: '#e69426',
+    SECONDARY: '#292E3E', //TODO edit
     MODAL_BG: 'rgba(74, 74, 75, 0.7)',
     SETTINGS_MENU: '#25303C',
     ANTI_COLOR: 'black',

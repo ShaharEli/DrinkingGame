@@ -14,7 +14,7 @@ export default {
     RED: '#f54b5e',
     GREEN: '#8bc34a',
     PRIMARY: '#4d3db9',
-    SECONDARY: '#e69426',
+    SECONDARY: 'white', //TODO edit
     MODAL_BG: 'rgba(74, 74, 75, 0.7)',
     SECONDARY_FONT: 'black',
     ANTI_COLOR: 'white',

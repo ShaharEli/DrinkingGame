@@ -18,7 +18,8 @@ const RoutesContainer = () => {
     dispatch(loginWithToken());
   }, [dispatch]);
 
-  if (loadingAuth || loadingTheme) return <Loading />;
+  if (loadingTheme) return <Loading />;
+  if (loadingAuth && !isSignedIn) return <Loading />;
 
   return (
     <NavigationContainer ref={navigationRef}>
