@@ -18,7 +18,7 @@ import ErrorBoundary from './src/screens/ErrorBoundry';
 
 LogBox.ignoreLogs(LOGS_TO_IGNORE);
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <Provider store={store}>
       <ErrorBoundary>

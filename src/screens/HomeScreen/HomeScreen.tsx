@@ -6,7 +6,7 @@ import {ScreenWrapper} from '../../styles/styleComponents';
 import {font} from '../../styles/themes/general';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const HomeScreen = () => {
+const HomeScreen = (): JSX.Element => {
   const {colors, rootStyles} = useAppSelector(state => state.styles);
   const {
     user: {firstName, lastName},

@@ -1,5 +1,4 @@
-import {TextStyle, ViewStyle} from 'react-native';
-import {Colors} from '../../types';
+import {ImageStyle, TextStyle, ViewStyle} from 'react-native';
 
 export const fontSize = {
   h1: 56,
@@ -74,7 +73,7 @@ const alignSelfEnd: ViewStyle = {
 const alignSelfStart: ViewStyle = {
   alignSelf: 'flex-start',
 };
-const alignSelfCenter: ViewStyle = {
+const alignSelfCenter: ViewStyle | ImageStyle = {
   alignSelf: 'center',
 };
 const justifyCenter: ViewStyle = {

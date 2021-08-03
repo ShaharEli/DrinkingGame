@@ -5,13 +5,13 @@ import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import Social from '../screens/Social/Social';
 import Settings from '../screens/Settings/Settings';
 import {useAppSelector} from '../hooks';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const BottomTabNavigator = createBottomTabNavigator<TabsParamList>();
 
-const Tab = () => {
+const Tab = (): JSX.Element => {
   const {colors, rootStyles} = useAppSelector(state => state.styles);
 
   return (
@@ -39,8 +39,8 @@ const Tab = () => {
         component={Social}
         options={{
           tabBarIcon: ({focused}) => (
-            <FontAwesome5
-              name="user-friends"
+            <AntDesign
+              name="team"
               size={25}
               color={focused ? colors.INDICATOR : colors.INACTIVE_TINT}
             />

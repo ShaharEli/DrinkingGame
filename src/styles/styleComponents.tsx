@@ -1,11 +1,16 @@
 import React from 'react';
+import {ImageStyle} from 'react-native';
 import {View, Image, StyleSheet, ViewStyle, TextStyle} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useAppSelector} from '../hooks';
 import {assets, AVATAR_SIZE, MAX_WIDTH} from '../utils';
 import {bg} from './themes/general';
 
-export function WidthContainer({children}: {children: Element}) {
+export function WidthContainer({
+  children,
+}: {
+  children: JSX.Element;
+}): JSX.Element {
   const {rootStyles} = useAppSelector(state => state.styles);
   return (
     <View style={[localStyles.widthContainer, rootStyles.alignSelfCenter]}>
@@ -14,7 +19,7 @@ export function WidthContainer({children}: {children: Element}) {
   );
 }
 interface DividerProps {
-  children?: React.FC;
+  children?: JSX.Element;
   m?: number;
   h?: number;
   bg?: string;
@@ -26,7 +31,7 @@ export function Divider({
   h: height = 0,
   bg: backgroundColor,
   w: width,
-}: DividerProps) {
+}: DividerProps): JSX.Element {
   const {rootStyles} = useAppSelector(state => state.styles);
 
   return (
@@ -44,7 +49,17 @@ export function Divider({
     </View>
   );
 }
-
+interface LogoProps {
+  w?: number;
+  h?: number;
+  m?: number;
+  mv?: number;
+  mh?: number;
+  mt?: number;
+  mb?: number;
+  alsc?: boolean;
+  style?: ImageStyle;
+}
 export function Logo({
   w: width = 200,
   h: height = 200,
@@ -55,7 +70,7 @@ export function Logo({
   mb: marginBottom = 0,
   alsc = true,
   style = {},
-}) {
+}: LogoProps): JSX.Element {
   const {rootStyles} = useAppSelector(state => state.styles);
   return (
     <Image
@@ -70,7 +85,7 @@ export function Logo({
           marginBottom,
           marginHorizontal,
         },
-        alsc && rootStyles.alignSelfCenter,
+        alsc ? (rootStyles.alignSelfCenter as ImageStyle) : {},
         style,
       ]}
     />
@@ -85,11 +100,11 @@ export const ScreenWrapper = ({
   children,
   style = {},
   withTop = true,
-}: ScreenWrapperProps) => {
+}: ScreenWrapperProps): JSX.Element => {
   const {top} = useSafeAreaInsets();
 
   const {colors, rootStyles} = useAppSelector(state => state.styles);
-  const getTop = (top: number) => ({paddingTop: top});
+  const getTop = (num: number) => ({paddingTop: num});
 
   return (
     <View
@@ -105,13 +120,13 @@ export const ScreenWrapper = ({
 };
 
 interface CircleWrapperProps {
-  children: React.FC;
+  children: JSX.Element;
   size: number;
 }
 export const CircleWrapper = ({
   children,
   size = AVATAR_SIZE,
-}: CircleWrapperProps) => {
+}: CircleWrapperProps): JSX.Element => {
   const {colors, rootStyles} = useAppSelector(state => state.styles);
   return (
     <View

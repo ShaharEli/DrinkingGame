@@ -6,7 +6,7 @@ import {getAccessTokenAndRetry} from './publicFetch';
 export default async function securedFetch<T>(
   path: string,
   method = 'GET',
-  body: Record<string, any>,
+  body?: Record<string, any>,
 ): Promise<T> {
   const accessToken = await getItem('accessToken');
   if (!accessToken) throw new Error('No Session Active');

@@ -29,7 +29,7 @@ export async function publicFetch<T>(
 export const getAccessTokenAndRetry = async <T>(
   path: string,
   method: string,
-  body: Record<string, any>,
+  body?: Record<string, any>,
 ): Promise<T> => {
   await getAccessToken();
   return await securedFetch(path, method, body);

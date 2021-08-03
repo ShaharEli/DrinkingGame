@@ -1,0 +1,30 @@
+assets:
+  - src/assets/**/*
+state:
+  - src/redux/**/*
+workflows:
+  - .github/workflows/**/*
+translation:
+  - src/i18n/**/*
+hooks:
+  - src/hooks/**/*
+api:
+  - src/api/**/*
+components:
+  - .github/components/**/*
+screens:
+  - src/screens/**/*
+styles:
+  - src/styles/**/*
+utils:
+  - src/utils/**/*
+types:
+  - src/types/**/*
+package:
+  - package.json
+app:
+  - App.tsx
+android:
+  - android/**/*
+ios:
+  - ios/**/*

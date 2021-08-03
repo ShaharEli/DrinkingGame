@@ -7,6 +7,7 @@ import I18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import {getLocales} from 'react-native-localize';
 import {getAppLanguage, setAppLanguage} from '../utils/storage';
+import {editUser} from '../api';
 
 I18n.use(initReactI18next) // passes i18n down to react-i18next
   .init({
@@ -24,6 +25,7 @@ I18n.use(initReactI18next) // passes i18n down to react-i18next
 export const switchLanguage = async (lang: Lang): Promise<void> => {
   const currentLang = I18n.language;
   if (lang === currentLang) return;
+  await editUser({language: lang});
   I18n.changeLanguage(lang);
   const isRtl = lang === 'he';
   I18nManager.forceRTL(isRtl);

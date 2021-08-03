@@ -9,6 +9,7 @@ import {
 } from '../types';
 import {logger} from '../utils';
 import {getItem, setItem} from '../utils';
+import securedFetch from './privateFetch';
 import {publicFetch} from './publicFetch';
 const BASE = '/auth';
 const getRefreshOrThrow = async () => {
@@ -106,6 +107,20 @@ export const loginWithToken = async (): LoginReturnType => {
     return user;
   } catch ({message}) {
     // logger.error(message); //TODO uncomment
+    return null;
+  }
+};
+
+export const editUser = async (payload: Partial<IUser>): LoginReturnType => {
+  try {
+    const {user} = await securedFetch<Record<'user', IUser>>(
+      `${BASE}/edit`,
+      'PUT',
+      payload,
+    );
+    return user;
+  } catch ({message}) {
+    logger.error(message);
     return null;
   }
 };
