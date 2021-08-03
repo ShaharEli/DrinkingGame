@@ -1,1 +1,16 @@
-{"translation":{"login":"login","register":"register","email":"email","password":"password","notWithUs":"not with us?","firstName":"first name","lastName":"last name","verifyPass":"repeat password","hello":"Hello","en":"english","he":"hebrew"}}
+{
+  "translation": {
+    "login": "login",
+    "register": "register",
+    "email": "email",
+    "password": "password",
+    "notWithUs": "not with us?",
+    "firstName": "first name",
+    "lastName": "last name",
+    "verifyPass": "repeat password",
+    "hello": "Hello",
+    "en": "english",
+    "he": "hebrew",
+    "true": "true"
+  }
+}
