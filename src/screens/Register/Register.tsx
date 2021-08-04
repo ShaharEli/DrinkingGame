@@ -11,7 +11,7 @@ import {
 import MainBtn from '../../components/MainBtn';
 import OutlinedTextField from '../../components/OutlinedTextField';
 import {WidthContainer, Divider} from '../../styles/styleComponents';
-import {assets, MAX_HEIGHT, logger} from '../../utils';
+import {assets, MAX_HEIGHT, logger, capitalize} from '../../utils';
 import ImagePicker from 'react-native-image-crop-picker';
 import {checkErrors} from './registerHelpers';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -40,11 +40,13 @@ export default function Register() {
         label: t('firstName'),
         onChangeText: setFirstName,
         error: errors?.firstName,
+        formatText: capitalize,
       },
       {
         label: t('lastName'),
         onChangeText: setLastName,
         error: errors?.lastName,
+        formatText: capitalize,
       },
       {
         label: t('email'),
@@ -118,6 +120,7 @@ export default function Register() {
         ]}>
         <View>
           <View>
+            {/* TODO use avatar picker */}
             <Pressable
               onPress={() => {
                 ImagePicker.openPicker({
@@ -155,6 +158,7 @@ export default function Register() {
               error,
               secureTextEntry = false,
               keyboardType = null,
+              formatText = null,
             }) => (
               <View key={label}>
                 <Divider m={15} />
@@ -165,6 +169,7 @@ export default function Register() {
                     error={error}
                     secureTextEntry={secureTextEntry}
                     keyboardType={keyboardType as KeyboardType | null}
+                    formatText={formatText}
                   />
                 </WidthContainer>
               </View>

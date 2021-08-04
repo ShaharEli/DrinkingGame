@@ -1,11 +1,12 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text} from 'react-native';
+import {ScreenWrapper} from '../../styles/styleComponents';
 
 const Social = () => {
   return (
-    <View>
+    <ScreenWrapper>
       <Text>Social</Text>
-    </View>
+    </ScreenWrapper>
   );
 };
 

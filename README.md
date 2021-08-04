@@ -36,6 +36,7 @@ This app is open to contributions, but I recommend to check before the to do lis
   - [ ] add yup validation to login and register
   - [ ] add dirty images detection
   - [ ] add dirty words detection
+  - [ ] do alert or screen to insure email verification
 - Workflow:
   - [ ] add github workflow for building the app and saving it to the artifacts
 - Assets:

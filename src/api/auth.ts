@@ -20,16 +20,15 @@ const getRefreshOrThrow = async () => {
 
 export const logErrorToService = async (error: Error, info: string) => {
   try {
-    let prevUser = await getItem('currUser');
-    if (prevUser) {
-      prevUser = JSON.parse(prevUser);
+    const prevUserString = await getItem('currUser');
+    let prevUser;
+    if (prevUserString) {
+      prevUser = JSON.parse(prevUserString);
     }
     const payload = {
       platform: Platform.OS,
       error,
       info,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       user: prevUser ? prevUser._id : null,
     };
     const {created} = await publicFetch(`${BASE}/error`, 'POST', payload);
@@ -65,12 +64,15 @@ export const loginByPass = async (payload: PassAndEmail): LoginReturnType => {
     await setItem('refreshToken', refreshToken);
     await setItem('currUser', user);
     return user;
-  } catch ({error}) {
-    Snackbar.show({
-      text: error,
-      duration: Snackbar.LENGTH_SHORT,
-    });
-    logger.error(error); //TODO uncomment
+  } catch (e) {
+    if (e?.error) {
+      Snackbar.show({
+        text: e.error,
+        duration: Snackbar.LENGTH_SHORT,
+      });
+    }
+
+    logger.error(e); //TODO uncomment
     return null;
   }
 };
@@ -87,10 +89,13 @@ export const register = async (payload: Partial<IUser>): LoginReturnType => {
     await setItem('currUser', user);
     return user;
   } catch (e) {
-    Snackbar.show({
-      text: e.error,
-      duration: Snackbar.LENGTH_SHORT,
-    });
+    if (e?.error) {
+      Snackbar.show({
+        text: e.error,
+        duration: Snackbar.LENGTH_SHORT,
+      });
+    }
+
     logger.error(e);
     return null;
   }
@@ -119,8 +124,8 @@ export const editUser = async (payload: Partial<IUser>): LoginReturnType => {
       payload,
     );
     return user;
-  } catch ({message}) {
-    logger.error(message);
+  } catch (e) {
+    logger.error(e);
     return null;
   }
 };

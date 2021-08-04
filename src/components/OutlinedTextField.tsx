@@ -2,19 +2,20 @@ import React, {useEffect, useRef} from 'react';
 import {KeyboardType, TextInput, ViewStyle} from 'react-native';
 import {OutlinedTextField as OTF} from '@ubaids/react-native-material-textfield';
 import {useAppSelector} from '../hooks';
-import {Color} from '../types';
+import {Color, Maybe} from '../types';
 
 interface Props {
   label: string;
-  keyboardType?: null | KeyboardType;
+  keyboardType?: Maybe<KeyboardType>;
   onChangeText: (t: string) => void;
-  error?: string | null;
+  error?: Maybe<string>;
   secureTextEntry?: boolean;
   ref?: React.RefObject<TextInput>;
   value?: string;
   tintColor?: Color | false;
   style?: ViewStyle;
   containerStyle?: ViewStyle;
+  formatText?: Maybe<(arg: string) => string>;
 }
 export default function OutlinedTextField({
   label,
@@ -27,6 +28,7 @@ export default function OutlinedTextField({
   tintColor,
   style = {},
   containerStyle = {},
+  formatText = null,
 }: Props) {
   const {colors} = useAppSelector(state => state.styles);
   const inputRef = useRef<TextInput>();
@@ -53,6 +55,7 @@ export default function OutlinedTextField({
       errorColor={colors.RED}
       secureTextEntry={secureTextEntry}
       ref={ref || inputRef}
+      formatText={formatText}
     />
   );
 }

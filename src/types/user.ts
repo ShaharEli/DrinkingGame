@@ -14,6 +14,8 @@ export interface IUser {
   language: Lang;
   userName: string;
   firebaseToken?: string;
-  role?: string;
-  blocked?: IUser[] | string[];
+  role: 'admin' | 'user';
+  blocked: IUser[] | string[];
+  friends: IUser[] | string[];
+  isVerified: boolean;
 }

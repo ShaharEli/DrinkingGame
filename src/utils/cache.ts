@@ -13,6 +13,7 @@ export const withCache = async (
       await setItem(val, {data: result, timeStamp: new Date().valueOf()});
       return result;
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     const {data, timeStamp} = JSON.parse(await getItem(val));
     const timediff = new Date().valueOf() - timeStamp;

@@ -12,7 +12,8 @@ import {StyleSheet} from 'react-native';
 import OutlinedTextField from '../../components/OutlinedTextField';
 import {checkUserName} from '../../api';
 import {useEffect} from 'react';
-
+import AvatarPicker from '../../components/AvatarPicker';
+// TODO style!!!
 const Settings = (): JSX.Element => {
   const {rootStyles, theme, colors} = useAppSelector(state => state.styles);
   const {user, loadingAuth} = useAppSelector(state => state.user);
@@ -20,6 +21,7 @@ const Settings = (): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<Maybe<Lang>>(user.language);
   const [userName, setUserName] = useState(user.userName);
+  const [img, setImg] = useState(user.avatar);
   const {t} = useTranslation();
 
   const languagesValues = useMemo(
@@ -44,7 +46,13 @@ const Settings = (): JSX.Element => {
   useEffect(() => {
     setArgValue(user.userName);
     setUserName(user.userName);
+    setImg(user.avatar);
   }, [user, setArgValue]);
+
+  useEffect(() => {
+    if (img === user.avatar || loadingAuth) return;
+    dispatch(editUserData({avatar: img}));
+  }, [img, user, dispatch, loadingAuth]);
 
   const userNameError = useMemo<boolean>(
     () =>
@@ -62,7 +70,9 @@ const Settings = (): JSX.Element => {
       <WidthContainer style={rootStyles.my3}>
         <Txt style={[rootStyles.mb3, rootStyles.h3]}>{t('settings')}</Txt>
       </WidthContainer>
-
+      <WidthContainer style={rootStyles.mb5}>
+        <AvatarPicker {...{img, setImg}} />
+      </WidthContainer>
       <MainBtn
         style={{...rootStyles.alignSelfStart, ...rootStyles.ms5}}
         onPress={() => {
