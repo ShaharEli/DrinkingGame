@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {TabsParamList} from '../types';
+import {FriendsStackParamList, TabsParamList} from '../types';
 import HomeScreen from '../screens/Home/Home';
 import Social from '../screens/Social/Social';
 import Settings from '../screens/Settings/Settings';
@@ -8,8 +8,20 @@ import {useAppSelector} from '../hooks';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {createStackNavigator} from '@react-navigation/stack';
+import AddFriend from '../screens/AddFriend/AddFriend';
 
 const BottomTabNavigator = createBottomTabNavigator<TabsParamList>();
+const FriendsStackNavigator = createStackNavigator<FriendsStackParamList>();
+
+const FriendsStack = (): JSX.Element => {
+  return (
+    <FriendsStackNavigator.Navigator screenOptions={{headerShown: false}}>
+      <FriendsStackNavigator.Screen name="Social" component={Social} />
+      <FriendsStackNavigator.Screen name="AddFriend" component={AddFriend} />
+    </FriendsStackNavigator.Navigator>
+  );
+};
 
 const Tab = (): JSX.Element => {
   const {colors} = useAppSelector(state => state.styles);
@@ -35,8 +47,8 @@ const Tab = (): JSX.Element => {
         }}
       />
       <BottomTabNavigator.Screen
-        name="Social"
-        component={Social}
+        name="FriendsStack"
+        component={FriendsStack}
         options={{
           tabBarIcon: ({focused}) => (
             <AntDesign

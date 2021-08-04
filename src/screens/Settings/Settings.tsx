@@ -7,7 +7,7 @@ import {Color, Lang, Maybe} from '../../types';
 import {useTranslation} from 'react-i18next';
 import {switchLanguage} from '../../i18n';
 import {editUserData, toggleTheme} from '../../redux/slices';
-import Txt from '../../components/Txt';
+import Txt from '../../components/Txts/Txt';
 import {StyleSheet} from 'react-native';
 import OutlinedTextField from '../../components/OutlinedTextField';
 import {checkUserName} from '../../api';
@@ -69,12 +69,14 @@ const Settings = (): JSX.Element => {
     <ScreenWrapper>
       <WidthContainer style={rootStyles.my3}>
         <Txt style={[rootStyles.mb3, rootStyles.h3]}>{t('settings')}</Txt>
-      </WidthContainer>
-      <WidthContainer style={rootStyles.mb5}>
         <AvatarPicker {...{img, setImg}} />
       </WidthContainer>
       <MainBtn
-        style={{...rootStyles.alignSelfStart, ...rootStyles.ms5}}
+        style={{
+          ...rootStyles.alignSelfStart,
+          ...rootStyles.ms5,
+          ...rootStyles.mt3,
+        }}
         onPress={() => {
           dispatch(toggleTheme());
         }}>

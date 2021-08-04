@@ -14,6 +14,8 @@ target 'DrinkingGame' do
     :hermes_enabled => false
   )
 
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+
   target 'DrinkingGameTests' do
     inherit! :complete
     # Pods for testing

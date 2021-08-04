@@ -7,6 +7,11 @@ export type PublicStackParamList = {
   Register: undefined;
 };
 
+export type FriendsStackParamList = {
+  AddFriend: undefined;
+  Social: undefined;
+};
+
 export type PrivateStackParamList = {
   Game: undefined;
   Tabs: undefined;
@@ -15,7 +20,7 @@ export type PrivateStackParamList = {
 export type TabsParamList = {
   Settings: undefined;
   Home: undefined;
-  Social: undefined;
+  FriendsStack: undefined;
 };
 
 export type GameScreenNavigationProp = StackNavigationProp<
@@ -38,8 +43,12 @@ export type SettingsScreenNavigationProp = BottomTabNavigationProp<
 >;
 
 export type SocialScreenNavigationProp = BottomTabNavigationProp<
-  TabsParamList,
+  FriendsStackParamList,
   'Social'
+>;
+export type AddFriendScreenNavigationProp = BottomTabNavigationProp<
+  FriendsStackParamList,
+  'AddFriend'
 >;
 
 export type LoginScreenNavigationProp = StackNavigationProp<

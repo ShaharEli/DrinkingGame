@@ -1,8 +1,8 @@
 import React, {useMemo} from 'react';
 import {Text, TextStyle} from 'react-native';
-import {useAppSelector} from '../hooks';
-import {font} from '../styles/themes/general';
-import {Color, Maybe} from '../types';
+import {useAppSelector} from '../../hooks';
+import {font} from '../../styles/themes/general';
+import {Color, Maybe} from '../../types';
 
 interface Props {
   style?: TextStyle | TextStyle[];

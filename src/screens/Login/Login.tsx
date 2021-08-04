@@ -10,7 +10,7 @@ import OutlinedTextField from '../../components/OutlinedTextField';
 import {loginWithPass} from '../../redux/slices';
 import {ILoginErrors, LoginScreenNavigationProp} from '../../types';
 import MainBtn from '../../components/MainBtn';
-import Txt from '../../components/Txt';
+import Txt from '../../components/Txts/Txt';
 
 interface Props {
   navigation: LoginScreenNavigationProp;

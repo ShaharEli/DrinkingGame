@@ -16,6 +16,9 @@ export interface IUser {
   firebaseToken?: string;
   role: 'admin' | 'user';
   blocked: IUser[] | string[];
-  friends: IUser[] | string[];
+  friends: Omit<
+    IUser,
+    'friends' | 'blocked' | 'email' | 'isVerified' | 'role' | 'language'
+  >[];
   isVerified: boolean;
 }
