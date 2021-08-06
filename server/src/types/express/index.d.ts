@@ -1,4 +1,5 @@
-import { UserRole } from "../user";
+/* eslint-disable no-unused-vars */
+import { UserRole } from '../user';
 
 declare global {
   namespace Express {

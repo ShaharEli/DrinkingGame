@@ -8,6 +8,7 @@ interface ISocketController {
   socket: SocketIOClient.Socket | null;
   isReady: boolean;
   subscribe: (event: string, cb: () => any) => void;
+  emit: (event: string, data: any, cb: () => any) => void;
 }
 
 export class SocketController implements ISocketController {
@@ -36,7 +37,7 @@ export class SocketController implements ISocketController {
     else this.socket.off(event);
   }
 
-  emit(event: string, data = {}, cb = () => {}) {
+  emit(event: string, data = {}, cb: () => any) {
     if (!this.isReady) return;
     this.socket.emit(event, data, cb);
   }

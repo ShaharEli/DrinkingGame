@@ -1,13 +1,12 @@
-import { Request, Response } from "express";
-
-const Logger = require("../logger/logger");
+import { Request, Response } from 'express';
+import Logger from '../logger/logger';
 
 export const withTryCatch = async (
   req: Request,
   res: Response,
   cb: (
-    req: Request,
-    res: Response
+    arg1: Request,
+    arg2: Response
   ) => Promise<void> | Promise<Response<any, Record<string, any>>>
 ) => {
   try {
@@ -17,6 +16,6 @@ export const withTryCatch = async (
       return res.status(e?.status || 500).json({ error: e.customMessage });
     }
     Logger.error(e.message);
-    return res.status(500).json({ error: "error occurred" });
+    return res.status(500).json({ error: 'error occurred' });
   }
 };

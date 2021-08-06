@@ -15,9 +15,7 @@ import {
 import { userValidationSchema } from '../validations/user';
 
 export const logErrorToService = async (req: Request, res: Response) => {
-  const {
-    info, platform, user, error,
-  } = req.body;
+  const { info, platform, user, error } = req.body;
   const payload = {
     info: JSON.stringify(error),
     platform,
@@ -47,7 +45,7 @@ export const login = async (req: Request, res: Response) => {
   const refreshToken = await generateRefreshToken(
     user._id,
     user.userName,
-    user.role,
+    user.role
   );
   res.json({ accessToken, refreshToken, user });
 };
@@ -138,12 +136,12 @@ export const register = async (req: Request, res: Response) => {
     const accessToken = generateAccessToken(
       user._id,
       newUser.userName,
-      newUser.role,
+      newUser.role
     );
     const refreshToken = await generateRefreshToken(
       user._id,
       newUser.userName,
-      newUser.role,
+      newUser.role
     );
     delete user.password;
     // TODO send mail
@@ -167,6 +165,7 @@ export const getToken = async (req: Request, res: Response) => {
   if (!refreshToken) createError('token missing', 400);
   const data = verifyRefreshToken(refreshToken);
   if (!data) return createError('token invalid', 400);
+
   const { userId, userName, role } = data;
   const accessToken = generateAccessToken(userId, userName, role);
   res.json({ accessToken });

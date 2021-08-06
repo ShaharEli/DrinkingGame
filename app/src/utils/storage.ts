@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-import {Lang, Theme} from '../types';
+import {Lang, Maybe, Theme} from '../types';
 import {DEFAULT_LANG, DEFAULT_THEME} from './consts';
 import {logger} from './logger';
 
@@ -58,7 +58,7 @@ export const setItemWithExpiry = async (
   return await AsyncStorage.setItem(key, JSON.stringify(item));
 };
 
-export const getItem = async (k: string) => {
+export const getItem = async (k: string): Promise<Maybe<string>> => {
   try {
     return await AsyncStorage.getItem(k);
   } catch {
@@ -66,12 +66,13 @@ export const getItem = async (k: string) => {
   }
 };
 
-export const setItem = async (k: string, v: any) => {
+export const setItem = async (k: string, v: any): Promise<Maybe<boolean>> => {
   try {
-    return await AsyncStorage.setItem(
+    await AsyncStorage.setItem(
       k,
       typeof v === 'object' ? JSON.stringify(v) : v,
     );
+    return true;
   } catch {
     return null;
   }

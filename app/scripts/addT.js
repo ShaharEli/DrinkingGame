@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const fs = require('fs');
 const basePath = path.join(__dirname, '..', 'src', 'i18n', 'locales');

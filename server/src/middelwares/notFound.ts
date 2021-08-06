@@ -1,5 +1,5 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
 export const notFound = (req: Request, res: Response) => {
-  res.status(404).json({ error: "route not found" });
-}; //TODO move from middlewares
+  res.status(404).json({ error: 'route not found' });
+}; // TODO move from middlewares

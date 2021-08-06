@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix  --quiet ",
     "android-clean": "cd android &&./gradlew clean && cd ../",
     "t": "node ./scripts/addT",
     "build-android": "cd android && ./gradlew app:assembleRelease && cd .. && today=`date '+%Y_%m_%d(%H_%M_%S)'`; mv ./android/app/build/outputs/apk/release/app-release.apk ./app-release-$today.apk"
@@ -26,7 +26,6 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.2",
     "i18next": "^20.3.5",
-    "lint-staged": ">=10",
     "moment": "^2.29.1",
     "react": "17.0.1",
     "react-i18next": "^11.11.4",

@@ -1,5 +1,5 @@
-import { IUserDoc } from "../../types";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
+import { IUserDoc } from '../../types';
 
 const userDbSchema: Schema = new mongoose.Schema(
   {
@@ -16,12 +16,12 @@ const userDbSchema: Schema = new mongoose.Schema(
     },
     blocked: {
       default: [],
-      ref: "User",
+      ref: 'User',
       type: [mongoose.Schema.Types.ObjectId],
     },
     friends: {
       default: [],
-      ref: "User",
+      ref: 'User',
       type: [mongoose.Schema.Types.ObjectId],
     },
     lastConnected: { type: Date, default: new Date() },
@@ -29,12 +29,12 @@ const userDbSchema: Schema = new mongoose.Schema(
     avatar: { type: String },
     password: { type: String, required: true },
     email: { type: String, required: true, trim: true },
-    role: { type: String, default: "user", enum: ["admin", "user"] },
+    role: { type: String, default: 'user', enum: ['admin', 'user'] },
     firebaseToken: { type: String },
     language: {
       type: String,
-      default: "he",
-      enum: ["he", "en"],
+      default: 'he',
+      enum: ['he', 'en'],
       required: true,
     },
     isVerified: { type: Boolean, default: false },
@@ -42,12 +42,12 @@ const userDbSchema: Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userDbSchema.set("toJSON", {
+userDbSchema.set('toJSON', {
   transform: (_: any, returnedObject: any) => {
     delete returnedObject.__v;
   },
 });
 
-const User = mongoose.model<IUserDoc>("User", userDbSchema);
+const User = mongoose.model<IUserDoc>('User', userDbSchema);
 
 export default User;

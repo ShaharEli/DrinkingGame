@@ -45,7 +45,7 @@ const socketHandler = (io: Server) => {
         const lastConnected = new Date();
         await User.findOneAndUpdate(
           { _id: socket.userId },
-          { isActive: false, lastConnected },
+          { isActive: false, lastConnected }
         );
         io.emit('socketDisconnected', {
           user: socket.userId,

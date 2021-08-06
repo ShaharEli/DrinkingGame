@@ -1,11 +1,11 @@
-import jwt, { Secret, VerifyErrors, VerifyOptions } from "jsonwebtoken";
-import RefreshToken from "../db/schemas/refreshToken";
-import User from "../db/schemas/user";
-import Logger from "../logger/logger";
-import { Falsy, EncodeResult } from "../types";
-import { createError } from ".";
+import jwt, { Secret } from 'jsonwebtoken';
+import RefreshToken from '../db/schemas/refreshToken';
+import User from '../db/schemas/user';
+import Logger from '../logger/logger';
+import { Falsy, EncodeResult } from '../types';
+import { createError } from '.';
 
-require("dotenv").config();
+require('dotenv').config();
 
 export const verifyAccessToken = (token: string): Falsy<EncodeResult> => {
   try {
@@ -30,7 +30,7 @@ export const generateAccessToken = (
       role,
     },
     process.env.ACCESS_TOKEN_SECRET as Secret,
-    { expiresIn: "15m" }
+    { expiresIn: '15m' }
   );
 
 export const verifyRefreshToken = (token: string): Falsy<EncodeResult> => {
@@ -51,7 +51,7 @@ export const generateRefreshToken = async (
 ): Promise<string | void> => {
   try {
     const user = await User.findById(id);
-    if (!user) throw new Error("user not found");
+    if (!user) throw new Error('user not found');
     await RefreshToken.deleteMany({ userId: id });
 
     const token = jwt.sign(
@@ -61,7 +61,7 @@ export const generateRefreshToken = async (
         role,
       },
       process.env.REFRESH_TOKEN_SECRET as Secret,
-      { expiresIn: "1y" }
+      { expiresIn: '1y' }
     );
 
     const newRefreshToken = new RefreshToken({
@@ -72,7 +72,7 @@ export const generateRefreshToken = async (
     return token;
   } catch ({ message }) {
     createError(message, 402);
-    //TODO  change status
+    // TODO  change status
     Logger.error(message);
   }
 };

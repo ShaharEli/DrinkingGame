@@ -1,5 +1,5 @@
-import { UserRole } from "./user";
-import { Document } from "mongoose";
+import { Document } from 'mongoose';
+import { UserRole } from './user';
 
 export interface EncodeResult {
   userId: string;
@@ -14,4 +14,4 @@ export interface IRefreshToken {
 }
 export interface IRefreshTokenDoc
   extends Document,
-    Omit<IRefreshToken, "_id"> {}
+    Omit<IRefreshToken, '_id'> {}

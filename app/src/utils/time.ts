@@ -4,7 +4,7 @@ const DAY_IN_CHAT = 'D in MMMM YYYY';
 const DAY_IN_CHATS = 'D.M.YYYY';
 const LAST_CONNECTED_START = 'last seen ';
 
-export const delay = (ms: number) =>
+export const delay = (ms: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, ms));
 export const dateToFromNowDaily = (myDate: Date) =>
   moment(myDate).calendar(null, {
@@ -16,7 +16,7 @@ export const dateToFromNowDaily = (myDate: Date) =>
     sameElse: DAY_IN_CHATS,
   });
 
-export const dateToFromNowToChat = (myDate: Date) =>
+export const dateToFromNowToChat = (myDate: Date): string =>
   moment(myDate).calendar(null, {
     lastDay: '[Yesterday] ',
     sameDay: '[Today]',
@@ -26,10 +26,10 @@ export const dateToFromNowToChat = (myDate: Date) =>
     sameElse: DAY_IN_CHAT,
   });
 
-export const isDifferentDay = (day1: Date, day2: Date) =>
+export const isDifferentDay = (day1: Date, day2: Date): boolean =>
   !moment(day1).isSame(moment(day2), 'day');
 
-export const calcLastConnected = (date: Date) =>
+export const calcLastConnected = (date: Date): string =>
   LAST_CONNECTED_START +
   moment(date).calendar(null, {
     lastDay: '[Yesterday at] HH:mm',

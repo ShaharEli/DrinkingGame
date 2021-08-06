@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/index.ts",
+    "lint": "eslint . --ext .js,.ts --fix --quiet",
     "start": "node ./src"
   },
   "keywords": [],
@@ -42,6 +43,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.6",
     "nodemon": "^2.0.12",
     "supertest": "^6.1.4",

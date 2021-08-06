@@ -1,7 +1,7 @@
-import { Lang } from "./user";
-import { Document } from "mongoose";
+import { Document } from 'mongoose';
+import { Lang } from './user';
 
-export type DareType = "question" | "dare";
+export type DareType = 'question' | 'dare';
 export interface IDare {
   type: DareType;
   text: string;
@@ -12,4 +12,4 @@ export interface IDare {
   updatedAt: Date;
   createdAt: Date;
 }
-export interface IDareDoc extends Document, Omit<IDare, "_id"> {}
+export interface IDareDoc extends Document, Omit<IDare, '_id'> {}

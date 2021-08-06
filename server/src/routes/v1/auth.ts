@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { withTryCatch } from "../../utils";
-import { checkToken } from "../../middelwares";
-import rateLimit from "express-rate-limit";
+import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
+import { withTryCatch } from '../../utils';
+import { checkToken } from '../../middelwares';
 import {
   login,
   getToken,
@@ -11,9 +11,9 @@ import {
   logErrorToService,
   editUser,
   checkIfUserNameIsValid,
-} from "../../controllers";
+} from '../../controllers';
 
-require("dotenv").config();
+require('dotenv').config();
 
 const apiLimiter = rateLimit({
   windowMs: 30 * 1000, // 15 minutes
@@ -22,31 +22,31 @@ const apiLimiter = rateLimit({
 
 const authRouter = Router();
 
-authRouter.post("/login", (req, res) => withTryCatch(req, res, login));
+authRouter.post('/login', (req, res) => withTryCatch(req, res, login));
 
-authRouter.post("/error", (req, res) =>
+authRouter.post('/error', (req, res) =>
   withTryCatch(req, res, logErrorToService)
 );
 
-authRouter.post("/login-with-token", (req, res) =>
+authRouter.post('/login-with-token', (req, res) =>
   withTryCatch(req, res, loginWithToken)
 );
 
-authRouter.post("/get-token", apiLimiter, (req, res) =>
+authRouter.post('/get-token', apiLimiter, (req, res) =>
   withTryCatch(req, res, getToken)
 );
 
-authRouter.post("/register", (req, res) => withTryCatch(req, res, register));
+authRouter.post('/register', (req, res) => withTryCatch(req, res, register));
 
-authRouter.post("/verify-mail", (req, res) =>
+authRouter.post('/verify-mail', (req, res) =>
   withTryCatch(req, res, verifyMail)
 );
 
-authRouter.put("/edit", checkToken, (req, res) =>
+authRouter.put('/edit', checkToken, (req, res) =>
   withTryCatch(req, res, editUser)
 );
 
-authRouter.post("/check-username", checkToken, (req, res) =>
+authRouter.post('/check-username', checkToken, (req, res) =>
   withTryCatch(req, res, checkIfUserNameIsValid)
 );
 

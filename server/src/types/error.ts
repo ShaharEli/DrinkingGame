@@ -1,5 +1,5 @@
-import { Document } from "mongoose";
-import { Platform } from "./common";
+import { Document } from 'mongoose';
+import { Platform } from './common';
 
 export interface IError {
   info?: string;
@@ -11,4 +11,4 @@ export interface IError {
   createdAt: Date;
 }
 
-export interface IErrorDoc extends Document, Omit<IError, "_id"> {}
+export interface IErrorDoc extends Document, Omit<IError, '_id'> {}

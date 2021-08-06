@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {FlatList, View} from 'react-native';
 import FriendListItem from '../../components/FriendListItem';
 import Txt from '../../components/Txts/Txt';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import {ScreenWrapper, WidthContainer} from '../../styles/styleComponents';
 import {SocialScreenNavigationProp} from '../../types';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -13,9 +13,8 @@ interface Props {
 }
 const Social = ({navigation}: Props): JSX.Element => {
   const {t} = useTranslation();
-  const {rootStyles, theme, colors} = useAppSelector(state => state.styles);
-  const {user, loadingAuth} = useAppSelector(state => state.user);
-  const dispatch = useAppDispatch();
+  const {rootStyles, colors} = useAppSelector(state => state.styles);
+  const {user} = useAppSelector(state => state.user);
 
   return (
     <ScreenWrapper>

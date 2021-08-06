@@ -1,7 +1,7 @@
-import { Document } from "mongoose";
+import { Document } from 'mongoose';
 
-export type Lang = "en" | "he";
-export type UserRole = "admin" | "user";
+export type Lang = 'en' | 'he';
+export type UserRole = 'admin' | 'user';
 
 export interface IName {
   firstName: string;
@@ -31,6 +31,6 @@ export interface IUser {
 
 export type IUserKeys = keyof IUser;
 
-type UserDocCompose = Omit<IUser, "_id">;
+type UserDocCompose = Omit<IUser, '_id'>;
 
 export interface IUserDoc extends Document, UserDocCompose {}
