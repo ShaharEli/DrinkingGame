@@ -3872,11 +3872,6 @@
   "resolved" "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz"
   "version" "2.1.0"
 
-"husky@^7.0.0":
-  "integrity" "sha512-gceRaITVZ+cJH9sNHqx5tFwbzlLCVxtVZcusME8JYQ8Edy5mpGDOqD8QBCdMhpyo9a+JXddnujQ4rpY2Ff9SJA=="
-  "resolved" "https://registry.npmjs.org/husky/-/husky-7.0.1.tgz"
-  "version" "7.0.1"
-
 "i18next@^20.3.5", "i18next@>= 19.0.0":
   "integrity" "sha512-//MGeU6n4TencJmCgG+TCrpdgAD/NDEU/KfKQekYbJX6QV7sD/NjWQdVdBi+bkT0snegnSoB7QhjSeatrk3a0w=="
   "resolved" "https://registry.npmjs.org/i18next/-/i18next-20.3.5.tgz"

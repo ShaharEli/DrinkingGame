@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "concurrently \"npm run dev-server\" \" npm run dev-app  \" ",
     "dev-server": "cd server && npm run dev",
-    "dev-app": "cd app && npm run ios  &>/dev/null"
+    "dev-app": "cd app && npm run ios  &>/dev/null",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,19 @@
   "bugs": {
     "url": "https://github.com/ShaharEli/DrinkingGame/issues"
   },
-  "homepage": "https://github.com/ShaharEli/DrinkingGame#readme"
+  "homepage": "https://github.com/ShaharEli/DrinkingGame#readme",
+  "devDependencies": {
+    "husky": "^7.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "/**/*.{js,jsx,ts,tsx}": [
+      "eslint ./ --fix",
+      "git add"
+    ]
+  }
 }
