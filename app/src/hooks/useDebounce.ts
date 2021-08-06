@@ -28,6 +28,7 @@ export const useDebounce = <T, J>(
       clearTimeout(handler);
       if (validator) {
         if (!validator(value)) return setLoading(false);
+        else setLoading(false);
       } else {
         setLoading(true);
       }

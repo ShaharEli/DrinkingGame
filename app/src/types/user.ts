@@ -1,4 +1,5 @@
 import {Lang} from './lang';
+export type UserRole = 'admin' | 'user';
 
 export interface IUser {
   firstName: string;
@@ -14,7 +15,7 @@ export interface IUser {
   language: Lang;
   userName: string;
   firebaseToken?: string;
-  role: 'admin' | 'user';
+  role: UserRole;
   blocked: IUser[] | string[];
   friends: Omit<
     IUser,
