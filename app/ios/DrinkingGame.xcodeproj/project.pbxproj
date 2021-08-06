@@ -114,7 +114,6 @@
 				0F1FB6B447941BBA801120E8 /* Pods-DrinkingGame-DrinkingGameTests.debug.xcconfig */,
 				17B569A693D0C11A6E35E308 /* Pods-DrinkingGame-DrinkingGameTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
