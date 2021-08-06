@@ -14,9 +14,11 @@ export const useDebounce = <T, J>(
   const prevArgValue = useRef(value);
 
   useEffect(() => {
-    if (prevArgValue?.current === argValue) return;
     if (validator) {
-      if (!validator(value)) return;
+      if (!validator(value)) {
+        prevArgValue.current = argValue;
+        return setDebouncedValue(initialState);
+      }
     }
     setLoading(true);
     const handler = setTimeout(async () => {

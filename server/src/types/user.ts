@@ -34,3 +34,13 @@ export type IUserKeys = keyof IUser;
 type UserDocCompose = Omit<IUser, '_id'>;
 
 export interface IUserDoc extends Document, UserDocCompose {}
+export type IFriend = Omit<
+  IUser,
+  | 'friends'
+  | 'blocked'
+  | 'email'
+  | 'isVerified'
+  | 'role'
+  | 'language'
+  | 'updatedAt'
+>;

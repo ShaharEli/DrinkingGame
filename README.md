@@ -1,7 +1,5 @@
 # Drinking Game app
 
-#### [Server repo](https://github.com/ShaharEli/drinkingGameServer)
-
 ## Contribution
 
 This app is open to contributions, but I recommend to check before the to do list and add issue with what you working on.
@@ -34,10 +32,11 @@ This app is open to contributions, but I recommend to check before the to do lis
   - [ ] Add invite through mail
 - Api
   - [ ] add yup validation to login and register
+  - [ ] add handler for connection errors
   - [ ] add dirty images detection
   - [ ] add dirty words detection
   - [ ] do alert or screen to insure email verification
-- Workflow:
+  - [ ] add labels to pull request
   - [ ] add github workflow for building the app and saving it to the artifacts
 - Assets:
   - [ ] use react-native-fs to manage saved assets

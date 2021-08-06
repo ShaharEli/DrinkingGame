@@ -2,21 +2,13 @@ import {apiHost} from '../bin';
 import {getItem, autoBind} from '../utils';
 import {getAccessToken} from './auth';
 import * as SocketIOClient from 'socket.io-client';
+import {ISocketController} from '../types';
 
-interface ISocketController {
-  connect: () => void;
-  socket: SocketIOClient.Socket | null;
-  isReady: boolean;
-  subscribe: (event: string, cb: () => any) => void;
-  emit: (event: string, data: any, cb: () => any) => void;
-}
-
-export class SocketController implements ISocketController {
+class SocketController implements ISocketController {
   isReady = false;
   socket = {} as SocketIOClient.Socket;
   constructor() {
     autoBind(this);
-    this.connect();
   }
 
   async initListeners() {
@@ -74,3 +66,4 @@ export class SocketController implements ISocketController {
     }
   }
 }
+export const socketController = new SocketController();

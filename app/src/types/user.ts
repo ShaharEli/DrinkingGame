@@ -1,3 +1,4 @@
+import {FriendRequestsStatusEnum} from '../utils';
 import {Lang} from './lang';
 export type UserRole = 'admin' | 'user';
 
@@ -17,9 +18,25 @@ export interface IUser {
   firebaseToken?: string;
   role: UserRole;
   blocked: IUser[] | string[];
-  friends: Omit<
-    IUser,
-    'friends' | 'blocked' | 'email' | 'isVerified' | 'role' | 'language'
-  >[];
+  friends: IFriend[];
   isVerified: boolean;
+  friendRequests: IFriendRequest[];
 }
+
+export interface IFriendRequest {
+  from: IFriend;
+  to: IFriend;
+  _id: string;
+  status: keyof typeof FriendRequestsStatusEnum;
+}
+export type IFriend = Omit<
+  IUser,
+  | 'friends'
+  | 'blocked'
+  | 'email'
+  | 'isVerified'
+  | 'role'
+  | 'language'
+  | 'updatedAt'
+  | 'friendRequests'
+>;

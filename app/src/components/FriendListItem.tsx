@@ -1,26 +1,53 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {SocialScreenNavigationProp} from '../types';
+import {ImageStyle, TouchableOpacity, View} from 'react-native';
+import {
+  // useAppDispatch,
+  useAppSelector,
+} from '../hooks';
+import Avatar from './Avatar';
+import Txt from './Txts/Txt';
 interface Props {
   _id: string;
   firstName: string;
   lastName: string;
   userName: string;
-  navigation: SocialScreenNavigationProp;
+  avatar: string;
+  lastConnected: Date;
+  isActive: boolean;
+  createdAt: Date;
+  addOptionOn?: boolean;
 }
 const FriendListItem = ({
-  navigation,
   _id,
   firstName,
   lastName,
   userName,
+  avatar,
+  // lastConnected,
+  isActive,
+  // createdAt,
+  addOptionOn = false,
 }: Props): JSX.Element => {
-  console.log(navigation, _id, firstName, lastName, userName);
+  // const {user, loadingAuth} = useAppSelector(state => state.user);
+  const {rootStyles} = useAppSelector(state => state.styles);
+  // const dispatch = useAppDispatch();
 
   return (
-    <View>
-      <Text />
-    </View>
+    <TouchableOpacity
+      disabled={addOptionOn}
+      style={[rootStyles.flexRow, rootStyles.alignCenter, rootStyles.mb4]}>
+      <View style={[rootStyles.flexRow, rootStyles.alignCenter]}>
+        <Avatar
+          img={avatar}
+          isActive={isActive}
+          style={rootStyles.me3 as ImageStyle}
+        />
+        <Txt size={15}>{`${firstName} ${lastName}`}</Txt>
+      </View>
+      <Txt style={rootStyles.mx4} size={10}>
+        {userName}
+      </Txt>
+    </TouchableOpacity>
   );
 };
 

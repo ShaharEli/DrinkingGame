@@ -11,10 +11,10 @@ export const searchFriends = async (req: Request, res: Response) => {
   const possibleMatches = await User.find({
     $and: [
       { userName: { $regex: `^${friendUserName}`, $options: 'i' } },
-      { userName: { $nin: [req.userName] } },
+      { _id: { $nin: [req.userId] } },
     ],
   })
     .select(friendsFields)
     .limit(FRIENDS_LIMIT);
-  res.json({ possibleMatches });
+  res.json(possibleMatches);
 };

@@ -29,12 +29,13 @@ const socketHandler = (io: Server) => {
       const payload: Partial<IUser> = {
         isActive: true,
         socketId: socket.id,
+        lastConnected: new Date(),
       };
       if (socket.firebaseToken) {
         payload.firebaseToken = socket.firebaseToken;
       }
 
-      await User.findOneAndUpdate({ _id: socket.userId }, payload);
+      await User.findByIdAndUpdate(socket.userId, payload);
       io.emit('socketConnected', { user: socket.userId });
     } catch ({ message }) {
       Logger.error(message);

@@ -6,9 +6,9 @@ import MainBtn from '../../components/MainBtn';
 import {Color, Lang, Maybe} from '../../types';
 import {useTranslation} from 'react-i18next';
 import {switchLanguage} from '../../i18n';
-import {editUserData, toggleTheme} from '../../redux/slices';
+import {editUserData, logoutAction, toggleTheme} from '../../redux/slices';
 import Txt from '../../components/Txts/Txt';
-import {StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import OutlinedTextField from '../../components/OutlinedTextField';
 import {checkUserName} from '../../api';
 import {useEffect} from 'react';
@@ -67,66 +67,74 @@ const Settings = (): JSX.Element => {
 
   return (
     <ScreenWrapper>
-      <WidthContainer style={rootStyles.my3}>
-        <Txt style={[rootStyles.mb3, rootStyles.h3]}>{t('settings')}</Txt>
-        <AvatarPicker {...{img, setImg}} />
-      </WidthContainer>
-      <MainBtn
-        style={{
-          ...rootStyles.alignSelfStart,
-          ...rootStyles.ms5,
-          ...rootStyles.mt3,
-        }}
-        onPress={() => {
-          dispatch(toggleTheme());
-        }}>
-        {t('toggleTheme', {theme: t(theme === 'dark' ? 'light' : 'dark')})}
-      </MainBtn>
-      <WidthContainer
-        style={{
-          ...rootStyles.my5,
-          ...rootStyles.flexRow,
-          ...rootStyles.alignCenter,
-        }}>
-        <OutlinedTextField
-          label={t('userName')}
-          containerStyle={rootStyles.flex1}
-          onChangeText={e => {
-            setArgValue(e);
-            setUserName(e);
-          }}
-          tintColor={userNameValid && (colors.GREEN as Color)}
-          error={
-            userNameError
-              ? userName.length < 6
-                ? t('tooShort', {arg: t('userName')})
-                : t('userNameInUse')
-              : null
-          }
-          value={userName}
-        />
+      <ScrollView contentContainerStyle={rootStyles.py3}>
+        <WidthContainer style={rootStyles.my3}>
+          <Txt style={[rootStyles.mb3, rootStyles.h3]}>{t('settings')}</Txt>
+          <AvatarPicker {...{img, setImg}} />
+        </WidthContainer>
         <MainBtn
-          style={styles.changeUserNameBtn}
-          textStyle={styles.changeUserNameTxt}
-          disabled={!userNameValid}
-          onPress={() => dispatch(editUserData({userName}))}
-          loading={loading || loadingAuth}>
-          {t('changeUserName')}
+          style={{
+            ...rootStyles.alignSelfStart,
+            ...rootStyles.ms5,
+            ...rootStyles.mt3,
+          }}
+          onPress={() => {
+            dispatch(toggleTheme());
+          }}>
+          {t('toggleTheme', {theme: t(theme === 'dark' ? 'light' : 'dark')})}
         </MainBtn>
-      </WidthContainer>
-      <WidthContainer style={rootStyles.my5}>
-        <DropDownPicker
-          theme={theme.toUpperCase()}
-          value={value}
-          items={languagesValues}
-          listItemLabelStyle={styles.labelStyle}
-          open={open}
-          setOpen={setOpen}
-          setValue={setValue}
-          labelStyle={styles.labelStyle}
-          onChangeValue={onLanguageChange}
-        />
-      </WidthContainer>
+        <WidthContainer
+          style={{
+            ...rootStyles.my5,
+            ...rootStyles.flexRow,
+            ...rootStyles.alignCenter,
+          }}>
+          <OutlinedTextField
+            label={t('userName')}
+            containerStyle={rootStyles.flex1}
+            onChangeText={e => {
+              setArgValue(e);
+              setUserName(e);
+            }}
+            tintColor={userNameValid && (colors.GREEN as Color)}
+            error={
+              userNameError
+                ? userName.length < 6
+                  ? t('tooShort', {arg: t('userName')})
+                  : t('userNameInUse')
+                : null
+            }
+            value={userName}
+          />
+          <MainBtn
+            style={styles.changeUserNameBtn}
+            textStyle={styles.changeUserNameTxt}
+            disabled={!userNameValid}
+            onPress={() => dispatch(editUserData({userName}))}
+            loading={loading || (loadingAuth && userName !== user.userName)}>
+            {t('changeUserName')}
+          </MainBtn>
+        </WidthContainer>
+        <WidthContainer style={rootStyles.my5}>
+          <DropDownPicker
+            theme={theme.toUpperCase()}
+            value={value}
+            items={languagesValues}
+            listItemLabelStyle={styles.labelStyle}
+            open={open}
+            setOpen={setOpen}
+            setValue={setValue}
+            labelStyle={styles.labelStyle}
+            onChangeValue={onLanguageChange}
+          />
+        </WidthContainer>
+        <MainBtn
+          style={{backgroundColor: colors.RED}}
+          loading={loadingAuth}
+          onPress={() => dispatch(logoutAction())}>
+          {t('logout')}
+        </MainBtn>
+      </ScrollView>
     </ScreenWrapper>
   );
 };

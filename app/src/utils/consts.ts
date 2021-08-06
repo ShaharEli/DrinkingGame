@@ -12,6 +12,12 @@ export const LOGS_TO_IGNORE = [
 ];
 export const FLOATING_BTN_SIZE = 100;
 
+export enum FriendRequestsStatusEnum {
+  SENT = 'sent',
+  APPROVED = 'approved',
+  DECLINED = 'declined',
+}
+
 export const AVATAR_SIZE = 100;
 
 export function isIphoneWithNotch() {

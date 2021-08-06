@@ -1,5 +1,6 @@
 import {Maybe} from '.';
 import {IUser} from './user';
+import * as SocketIOClient from 'socket.io-client';
 
 export interface FetchOptions {
   method: string;
@@ -34,3 +35,16 @@ export interface Tokens {
 }
 
 export type UserAndTokens = {user: IUser} & Tokens;
+
+export interface ISocketController {
+  connect: () => void;
+  disconnect: () => void;
+  socket: SocketIOClient.Socket | null;
+  isReady: boolean;
+  subscribe: (event: string, cb: () => any) => void;
+  emit: (event: string, data: any, cb: () => any) => void;
+}
+
+export interface ISuccess {
+  success: boolean;
+}

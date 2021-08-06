@@ -50,6 +50,7 @@ const Tab = (): JSX.Element => {
         name="FriendsStack"
         component={FriendsStack}
         options={{
+          tabBarBadge: undefined,
           tabBarIcon: ({focused}) => (
             <AntDesign
               name="team"
@@ -76,4 +77,4 @@ const Tab = (): JSX.Element => {
   );
 };
 
-export default Tab;
+export default React.memo(Tab);

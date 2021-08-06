@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import Error from '../db/schemas/error';
+import RefreshToken from '../db/schemas/refreshToken';
 import User from '../db/schemas/user';
 import Logger from '../logger/logger';
 import { IUser, IUserKeys } from '../types';
@@ -33,7 +34,9 @@ export const logErrorToService = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { password, email } = req.body;
   if (!password || !email) createError('content missing', 400);
-  const user = await User.findOne({ email }).populate({
+  const user = await User.findOne({
+    email: { $regex: `^${email}$`, $options: 'i' }, // TODO check
+  }).populate({
     path: 'friends',
     select: friendsFields,
   });
@@ -169,4 +172,17 @@ export const getToken = async (req: Request, res: Response) => {
   const { userId, userName, role } = data;
   const accessToken = generateAccessToken(userId, userName, role);
   res.json({ accessToken });
+};
+
+export const logout = async (req: Request, res: Response) => {
+  const { userId } = req;
+  console.log(userId);
+
+  const user = await User.findByIdAndUpdate(userId, {
+    isActive: false,
+    lastConnected: new Date(),
+  });
+  if (!user) return createError('error occurred', 500);
+  await RefreshToken.deleteMany({ userId });
+  res.json({ success: true });
 };

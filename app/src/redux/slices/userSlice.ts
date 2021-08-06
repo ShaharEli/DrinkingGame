@@ -6,11 +6,18 @@ import {
   register,
   loginByPass as login,
   editUser,
+  logout,
+  socketController,
 } from '../../api';
 
 export const loginWithToken = createAsyncThunk<Maybe<IUser>>(
   'user/loginWithToken',
   async () => await initialLogin(),
+);
+
+export const logoutAction = createAsyncThunk<boolean>(
+  'user/logoutAction',
+  async () => await logout(),
 );
 export const loginWithPass = createAsyncThunk<Maybe<IUser>, PassAndEmail>(
   'user/loginWithPass',
@@ -64,6 +71,16 @@ const userSlice = createSlice({
       }
       state.loadingAuth = false;
     });
+
+    builder.addCase(logoutAction.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.user = {} as IUser;
+        state.isSignedIn = false;
+        socketController.disconnect();
+      }
+      state.loadingAuth = false;
+    });
+
     builder.addCase(loginWithToken.pending, state => {
       state.loadingAuth = true;
     });
@@ -71,6 +88,10 @@ const userSlice = createSlice({
       state.loadingAuth = true;
     });
     builder.addCase(loginWithPass.pending, state => {
+      state.loadingAuth = true;
+    });
+
+    builder.addCase(logoutAction.pending, state => {
       state.loadingAuth = true;
     });
 

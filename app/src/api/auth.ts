@@ -1,6 +1,8 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Platform} from 'react-native';
 import Snackbar from 'react-native-snackbar';
 import {
+  ISuccess,
   IUser,
   LoginReturnType,
   PassAndEmail,
@@ -74,6 +76,23 @@ export const loginByPass = async (payload: PassAndEmail): LoginReturnType => {
 
     logger.error(e); //TODO uncomment
     return null;
+  }
+};
+
+export const logout = async (): Promise<boolean> => {
+  try {
+    const {success} = await securedFetch<ISuccess>(`${BASE}/logout`, 'POST');
+    if (success) {
+      await AsyncStorage.multiRemove([
+        'accessToken',
+        'currProfile',
+        'refreshToken',
+      ]);
+    }
+    return success;
+  } catch (e) {
+    logger.error(e);
+    return false;
   }
 };
 

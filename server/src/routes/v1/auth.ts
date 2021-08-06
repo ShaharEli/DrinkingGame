@@ -11,6 +11,7 @@ import {
   logErrorToService,
   editUser,
   checkIfUserNameIsValid,
+  logout,
 } from '../../controllers';
 
 require('dotenv').config();
@@ -23,6 +24,10 @@ const apiLimiter = rateLimit({
 const authRouter = Router();
 
 authRouter.post('/login', (req, res) => withTryCatch(req, res, login));
+
+authRouter.post('/logout', checkToken, (req, res) =>
+  withTryCatch(req, res, logout)
+);
 
 authRouter.post('/error', (req, res) =>
   withTryCatch(req, res, logErrorToService)
