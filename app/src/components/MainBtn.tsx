@@ -13,7 +13,7 @@ import {Maybe} from '../types';
 interface Props {
   style?: ViewStyle;
   textStyle?: TextStyle;
-  onPress: () => void;
+  onPress?: () => void;
   loading?: boolean;
   children?: Maybe<string | undefined> | Maybe<string | undefined>[];
   disabled?: boolean;

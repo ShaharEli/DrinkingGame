@@ -1,11 +1,11 @@
 import {apiHostWithVersion} from '../bin/index';
 import {getAccessToken} from './auth';
 import securedFetch from './privateFetch';
-import {FetchOptions, Maybe} from '../types';
+import {FetchOptions, Maybe, Method} from '../types';
 
 export async function publicFetch<T>(
   path: string,
-  method = 'GET',
+  method: Method = 'GET',
   body?: Maybe<Record<string, any>>,
 ): Promise<T> {
   const fetchOptions: RequestInit & Pick<FetchOptions, 'cache'> = {
@@ -28,7 +28,7 @@ export async function publicFetch<T>(
 
 export const getAccessTokenAndRetry = async <T>(
   path: string,
-  method: string,
+  method: Method,
   body?: Record<string, any>,
 ): Promise<T> => {
   await getAccessToken();

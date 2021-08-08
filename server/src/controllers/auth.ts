@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import Error from '../db/schemas/error';
+import FriendRequest from '../db/schemas/friendRequest';
 import RefreshToken from '../db/schemas/refreshToken';
 import User from '../db/schemas/user';
 import Logger from '../logger/logger';
@@ -50,7 +51,15 @@ export const login = async (req: Request, res: Response) => {
     user.userName,
     user.role
   );
-  res.json({ accessToken, refreshToken, user });
+  const friendRequests = await FriendRequest.find({
+    $or: [
+      { from: { $in: [user._id] } },
+      {
+        to: { $in: [user._id] },
+      },
+    ],
+  });
+  res.json({ accessToken, refreshToken, user: { ...user, friendRequests } });
 };
 
 export const loginWithToken = async (req: Request, res: Response) => {
@@ -66,10 +75,19 @@ export const loginWithToken = async (req: Request, res: Response) => {
       select: friendsFields,
     })
     .lean();
+
   if (!user) return createError('error occurred', 500);
+  const friendRequests = await FriendRequest.find({
+    $or: [
+      { from: { $in: [userId] } },
+      {
+        to: { $in: [userId] },
+      },
+    ],
+  });
   delete user.password;
   const accessToken = generateAccessToken(userId, user.userName, user.role);
-  res.json({ user, accessToken });
+  res.json({ user: { ...user, friendRequests }, accessToken });
 };
 
 export const editUser = async (req: Request, res: Response) => {
@@ -103,8 +121,17 @@ export const editUser = async (req: Request, res: Response) => {
     })
     .lean();
   if (!user) return createError('error occurred', 400);
+
+  const friendRequests = await FriendRequest.find({
+    $or: [
+      { from: { $in: [user._id] } },
+      {
+        to: { $in: [user._id] },
+      },
+    ],
+  });
   delete user.password;
-  res.json({ user });
+  res.json({ ...user, friendRequests });
 };
 
 export const verifyMail = async () => {};
@@ -148,7 +175,11 @@ export const register = async (req: Request, res: Response) => {
     );
     delete user.password;
     // TODO send mail
-    res.json({ user, accessToken, refreshToken });
+    res.json({
+      user: { ...user, friendRequests: [] },
+      accessToken,
+      refreshToken,
+    });
   } catch (err) {
     Logger.error(err);
     createError('error occurred', 400);
@@ -176,8 +207,6 @@ export const getToken = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
   const { userId } = req;
-  console.log(userId);
-
   const user = await User.findByIdAndUpdate(userId, {
     isActive: false,
     lastConnected: new Date(),

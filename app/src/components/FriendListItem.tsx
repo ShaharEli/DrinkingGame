@@ -1,10 +1,18 @@
 import React from 'react';
+// import {useTranslation} from 'react-i18next';
 import {ImageStyle, TouchableOpacity, View} from 'react-native';
 import {
   // useAppDispatch,
   useAppSelector,
 } from '../hooks';
+// import {
+//   addFriendAction,
+//   approveFriendRequestAction,
+//   declineFriendRequestAction,
+// } from '../redux/slices';
+// import {FriendRequestsStatusEnum} from '../utils';
 import Avatar from './Avatar';
+import FriendRequestHandler from './FriendRequestHandler';
 import Txt from './Txts/Txt';
 interface Props {
   _id: string;
@@ -31,6 +39,7 @@ const FriendListItem = ({
   // const {user, loadingAuth} = useAppSelector(state => state.user);
   const {rootStyles} = useAppSelector(state => state.styles);
   // const dispatch = useAppDispatch();
+  // const {t} = useTranslation();
 
   return (
     <TouchableOpacity
@@ -47,6 +56,7 @@ const FriendListItem = ({
       <Txt style={rootStyles.mx4} size={10}>
         {userName}
       </Txt>
+      <FriendRequestHandler id={_id} />
     </TouchableOpacity>
   );
 };

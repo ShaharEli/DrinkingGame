@@ -44,6 +44,7 @@ export interface ISocketController {
   subscribe: (event: string, cb: () => any) => void;
   emit: (event: string, data: any, cb: () => any) => void;
 }
+export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 export interface ISuccess {
   success: boolean;

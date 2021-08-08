@@ -12,6 +12,7 @@ const Stack = createStackNavigator<PrivateStackParamList>();
 const PrivateRoutes = (): JSX.Element => {
   useEffect(() => {
     socketController.connect();
+
     AppState.addEventListener('change', state => {
       if (
         ['inactive', 'background'].includes(state) &&

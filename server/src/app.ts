@@ -17,8 +17,9 @@ app.use(express.json());
 app.use(helmet());
 
 app.use(loggerMiddleWare);
-app.use('/api', routes);
 socketHandler(io);
+app.use('/api', routes);
 app.set('socketio', io);
+
 app.use(notFound);
 export default server;

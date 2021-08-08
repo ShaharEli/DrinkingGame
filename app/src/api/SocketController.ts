@@ -17,8 +17,11 @@ class SocketController implements ISocketController {
     }
   }
 
-  subscribe(event: string, cb: () => any) {
-    if (!this.isReady) return;
+  subscribe<T>(event: string, cb: (T) => void) {
+    if (!this.isReady) {
+      setTimeout(() => this.subscribe(event, cb), 1000);
+      return;
+    }
     this.unsubscribe(event);
     this.socket.on(event, cb);
   }

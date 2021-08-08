@@ -1,12 +1,12 @@
 import { Document } from 'mongoose';
 import { FriendRequestsStatusEnum } from '../utils';
-import { IFriend } from './user';
+import { ValueOf } from './common';
 
 export interface IFriendRequest {
-  from: IFriend;
-  to: IFriend;
+  from: string;
+  to: string;
   _id: string;
-  status: keyof typeof FriendRequestsStatusEnum;
+  status: ValueOf<FriendRequestsStatusEnum>;
 }
 
 export interface IFriendRequestDoc

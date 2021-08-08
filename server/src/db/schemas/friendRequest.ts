@@ -9,8 +9,8 @@ const friendRequestDbSchema: Schema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      default: FriendRequestsStatusEnum.SENT,
-      enum: Object.keys(FriendRequestsStatusEnum),
+      default: FriendRequestsStatusEnum.PENDING,
+      enum: Object.values(FriendRequestsStatusEnum),
     },
   },
   { timestamps: true }

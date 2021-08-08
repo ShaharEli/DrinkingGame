@@ -1,1 +1,35 @@
-{"translation":{"login":"login","register":"register","email":"email","password":"password","notWithUs":"not with us?","firstName":"first name","lastName":"last name","verifyPass":"repeat password","hello":"Hello","en":"english","he":"hebrew","settings":"settings","toggleTheme":"change theme to {{theme}}","light":"light","dark":"dark","changeLang":"change language","userName":"user name","tooShort":"{{arg}} too short","userNameInUse":"username taken","changeUserName":"change username","friends":"friends","friend":"friend","addFriend":"add friend","searchFriend":"search friend","friendsNotFound":"0 friends found","addFriendError":"error occured while trying to add friend","logout":"logout"}}
+{
+  "translation": {
+    "login": "login",
+    "register": "register",
+    "email": "email",
+    "password": "password",
+    "notWithUs": "not with us?",
+    "firstName": "first name",
+    "lastName": "last name",
+    "verifyPass": "repeat password",
+    "hello": "Hello",
+    "en": "english",
+    "he": "hebrew",
+    "settings": "settings",
+    "toggleTheme": "change theme to {{theme}}",
+    "light": "light",
+    "dark": "dark",
+    "changeLang": "change language",
+    "userName": "user name",
+    "tooShort": "{{arg}} too short",
+    "userNameInUse": "username taken",
+    "changeUserName": "change username",
+    "friends": "friends",
+    "friend": "friend",
+    "addFriend": "add friend",
+    "searchFriend": "search friend",
+    "friendsNotFound": "0 friends found",
+    "addFriendError": "error occured while trying to add friend",
+    "logout": "logout",
+    "sent": "sent",
+    "declined": "declined",
+    "decline": "decline",
+    "approve": "approve"
+  }
+}

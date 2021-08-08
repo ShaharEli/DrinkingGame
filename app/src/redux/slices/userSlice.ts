@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {IUser, Maybe, PassAndEmail} from '../../types';
+import {IFriendRequest, IUser, Maybe, PassAndEmail} from '../../types';
 import {
   loginWithToken as initialLogin,
   register,
@@ -8,6 +8,9 @@ import {
   editUser,
   logout,
   socketController,
+  addFriend,
+  approveFriendRequest,
+  declineFriend,
 } from '../../api';
 
 export const loginWithToken = createAsyncThunk<Maybe<IUser>>(
@@ -33,6 +36,27 @@ export const editUserData = createAsyncThunk<Maybe<IUser>, Partial<IUser>>(
   async payload => await editUser(payload),
 );
 
+export const addFriendAction = createAsyncThunk<Maybe<IFriendRequest>, string>(
+  'user/addFriendAction',
+  async payload => await addFriend(payload),
+);
+
+export const approveFriendRequestAction = createAsyncThunk<
+  Maybe<IUser>,
+  string
+>(
+  'user/approveFriendRequestAction',
+  async payload => await approveFriendRequest(payload),
+);
+
+export const declineFriendRequestAction = createAsyncThunk<
+  Maybe<IFriendRequest>,
+  string
+>(
+  'user/declineFriendRequestAction',
+  async payload => await declineFriend(payload),
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -40,7 +64,17 @@ const userSlice = createSlice({
     user: {} as IUser,
     isSignedIn: false,
   },
-  reducers: {},
+  reducers: {
+    addFriendRequest<IFriendRequest>(
+      state,
+      action: PayloadAction<IFriendRequest>,
+    ) {
+      state.user.friendRequests = [
+        ...state.user.friendRequests,
+        action.payload,
+      ];
+    },
+  },
 
   extraReducers: builder => {
     builder.addCase(loginWithToken.fulfilled, (state, action) => {
@@ -81,6 +115,45 @@ const userSlice = createSlice({
       state.loadingAuth = false;
     });
 
+    builder.addCase(addFriendAction.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.user.friendRequests = [
+          ...state.user.friendRequests,
+          action.payload,
+        ];
+      }
+      state.loadingAuth = false;
+    });
+
+    builder.addCase(approveFriendRequestAction.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.user = action.payload;
+      }
+      state.loadingAuth = false;
+    });
+
+    builder.addCase(declineFriendRequestAction.fulfilled, (state, action) => {
+      if (action.payload) {
+        const friendRequestIndex = state.user.friendRequests.findIndex(
+          ({_id}) => _id === action.payload?._id,
+        );
+        if (friendRequestIndex === -1) return;
+
+        state.user.friendRequests[friendRequestIndex] = action.payload;
+      }
+      state.loadingAuth = false;
+    });
+
+    builder.addCase(addFriendAction.pending, state => {
+      state.loadingAuth = true;
+    });
+    builder.addCase(approveFriendRequestAction.pending, state => {
+      state.loadingAuth = true;
+    });
+    builder.addCase(declineFriendRequestAction.pending, state => {
+      state.loadingAuth = true;
+    });
+
     builder.addCase(loginWithToken.pending, state => {
       state.loadingAuth = true;
     });
@@ -102,3 +175,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+export const {addFriendRequest} = userSlice.actions;

@@ -1,5 +1,7 @@
 import {FriendRequestsStatusEnum} from '../utils';
 import {Lang} from './lang';
+import {ValueOf} from './common';
+
 export type UserRole = 'admin' | 'user';
 
 export interface IUser {
@@ -24,10 +26,10 @@ export interface IUser {
 }
 
 export interface IFriendRequest {
-  from: IFriend;
-  to: IFriend;
+  from: string;
+  to: string;
   _id: string;
-  status: keyof typeof FriendRequestsStatusEnum;
+  status: ValueOf<FriendRequestsStatusEnum>;
 }
 export type IFriend = Omit<
   IUser,

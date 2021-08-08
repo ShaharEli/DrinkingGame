@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {FriendsStackParamList, TabsParamList} from '../types';
+import {IFriendRequest, FriendsStackParamList, TabsParamList} from '../types';
 import HomeScreen from '../screens/Home/Home';
 import Social from '../screens/Social/Social';
 import Settings from '../screens/Settings/Settings';
-import {useAppSelector} from '../hooks';
+import {useAppDispatch, useAppSelector} from '../hooks';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {createStackNavigator} from '@react-navigation/stack';
 import AddFriend from '../screens/AddFriend/AddFriend';
+import {useEffect} from 'react';
+import {socketController} from '../api';
+import {addFriendRequest} from '../redux/slices';
 
 const BottomTabNavigator = createBottomTabNavigator<TabsParamList>();
 const FriendsStackNavigator = createStackNavigator<FriendsStackParamList>();
@@ -25,6 +28,28 @@ const FriendsStack = (): JSX.Element => {
 
 const Tab = (): JSX.Element => {
   const {colors} = useAppSelector(state => state.styles);
+  const {user} = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    socketController.subscribe<IFriendRequest>(
+      'newFriendRequest',
+      (friendRequest: IFriendRequest) => {
+        console.log('hereelcldcldm');
+        dispatch(addFriendRequest(friendRequest));
+      },
+    );
+  }, [dispatch]);
+
+  const notificationsCount = useMemo(
+    () =>
+      user?.friendRequests.reduce(
+        (acc, curr) =>
+          acc + (curr.status === 'pending' && curr.to === user._id ? 1 : 0),
+        0,
+      ),
+    [user.friendRequests, user._id],
+  );
 
   return (
     <BottomTabNavigator.Navigator
@@ -50,7 +75,7 @@ const Tab = (): JSX.Element => {
         name="FriendsStack"
         component={FriendsStack}
         options={{
-          tabBarBadge: undefined,
+          tabBarBadge: notificationsCount || undefined,
           tabBarIcon: ({focused}) => (
             <AntDesign
               name="team"

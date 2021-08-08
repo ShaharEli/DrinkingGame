@@ -24,11 +24,6 @@ const userDbSchema: Schema = new mongoose.Schema(
       ref: 'User',
       type: [mongoose.Schema.Types.ObjectId],
     },
-    friendRequests: {
-      default: [],
-      ref: 'FriendRequest',
-      type: [mongoose.Schema.Types.ObjectId],
-    },
     lastConnected: { type: Date, default: new Date() },
     socketId: { type: String },
     avatar: { type: String, default: '' },

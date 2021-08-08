@@ -1,11 +1,11 @@
 import {apiHostWithVersion} from '../bin/index';
-import {FetchOptions} from '../types';
+import {FetchOptions, Method} from '../types';
 import {getItem} from '../utils';
 import {getAccessTokenAndRetry} from './publicFetch';
 
 export default async function securedFetch<T>(
   path: string,
-  method = 'GET',
+  method: Method = 'GET',
   body?: Record<string, any>,
 ): Promise<T> {
   const accessToken = await getItem('accessToken');
