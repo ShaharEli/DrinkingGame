@@ -5,3 +5,4 @@ export * from './api';
 export * from './navigation';
 export * from './login';
 export * from './common';
+export * from './friends';

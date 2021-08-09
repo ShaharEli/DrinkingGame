@@ -10,6 +10,7 @@ export const LOGS_TO_IGNORE = [
   'SerializableStateInvariantMiddleware took 103ms',
   'Require cycle: node_modules/react-native/Libraries/Network/fetch',
   'SerializableStateInvariantMiddleware took',
+  'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because',
 ];
 export const FLOATING_BTN_SIZE = 100;
 

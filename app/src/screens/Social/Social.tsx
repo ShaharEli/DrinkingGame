@@ -1,13 +1,16 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {FlatList, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import FriendListItem from '../../components/FriendListItem';
 import Txt from '../../components/Txts/Txt';
 import {useAppSelector} from '../../hooks';
 import {ScreenWrapper, WidthContainer} from '../../styles/styleComponents';
 import {SocialScreenNavigationProp} from '../../types';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {titelize} from '../../utils';
+import {calcFriendRequests, titelize} from '../../utils';
+import MainBtn from '../../components/MainBtn';
+import If from '../../components/If';
+import {fontS} from '../../styles/themes/general';
 interface Props {
   navigation: SocialScreenNavigationProp;
 }
@@ -28,6 +31,14 @@ const Social = ({navigation}: Props): JSX.Element => {
           <Txt style={[rootStyles.mb3, rootStyles.h3]}>
             {titelize(t('friends'))}
           </Txt>
+          <If cond={!!calcFriendRequests(user)}>
+            <MainBtn
+              style={styles.sqrBtn}
+              textStyle={fontS(12)}
+              onPress={() => navigation.navigate('FriendRequests')}>
+              {t('gotFriendRequest', {num: calcFriendRequests(user)})}
+            </MainBtn>
+          </If>
           <AntDesign
             name="adduser"
             size={30}
@@ -48,3 +59,10 @@ const Social = ({navigation}: Props): JSX.Element => {
 };
 
 export default Social;
+
+const styles = StyleSheet.create({
+  sqrBtn: {
+    width: 150,
+    borderRadius: 10,
+  },
+});

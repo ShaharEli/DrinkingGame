@@ -7,3 +7,4 @@ export * from './time';
 export * from './autoBind';
 export * from './cache';
 export * from './assets';
+export * from './friends';

@@ -6,3 +6,15 @@ export enum FriendRequestsStatusEnum {
   APPROVED = 'approved',
   DECLINED = 'declined',
 }
+
+export const friendsOmitFields = [
+  'email',
+  'password',
+  'isVerified',
+  'role',
+  'blocked',
+  'friends',
+  'language',
+  'updatedAt',
+  'friendRequests',
+];

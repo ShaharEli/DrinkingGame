@@ -3,7 +3,6 @@ import {getItem, autoBind} from '../utils';
 import {getAccessToken} from './auth';
 import * as SocketIOClient from 'socket.io-client';
 import {ISocketController} from '../types';
-
 class SocketController implements ISocketController {
   isReady = false;
   socket = {} as SocketIOClient.Socket;
@@ -17,7 +16,7 @@ class SocketController implements ISocketController {
     }
   }
 
-  subscribe<T>(event: string, cb: (T) => void) {
+  subscribe<T>(event: string, cb: (arg0: T) => void) {
     if (!this.isReady) {
       setTimeout(() => this.subscribe(event, cb), 1000);
       return;

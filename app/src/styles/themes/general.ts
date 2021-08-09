@@ -19,7 +19,9 @@ const h1: TextStyle = {
 export const font = ({font}: {font: string}): TextStyle => ({
   color: font,
 });
-
+export const fontS = (font: number): TextStyle => ({
+  fontSize: font,
+});
 export const bg = ({BG}: {BG: string}): ViewStyle => ({
   backgroundColor: BG,
 });

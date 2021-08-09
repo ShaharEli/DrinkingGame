@@ -7,14 +7,14 @@ import {
   approveFriendRequestAction,
   declineFriendRequestAction,
 } from '../redux/slices';
+import {fontS} from '../styles/themes/general';
 import {FriendRequestsStatusEnum} from '../utils';
-import MainBtn from './MainBtn';
+import MainBtn, {Props as MainBtnProps} from './MainBtn';
 interface Props {
   id: string;
 }
 const FriendRequestHandler = ({id: _id}: Props) => {
   const {user, loadingAuth} = useAppSelector(state => state.user);
-  //   const {rootStyles} = useAppSelector(state => state.styles);
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
 
@@ -28,9 +28,17 @@ const FriendRequestHandler = ({id: _id}: Props) => {
     if (user.friends?.find(({_id: friendId}) => friendId === _id)) {
       return {...base, label: t('friends')};
     }
-    const curr = user.friendRequests?.find(
-      ({to, from}) => to === _id || from === _id,
+    let curr = user.friendRequests?.find(
+      ({to, from, status}) =>
+        (to === _id || from === _id) &&
+        status === FriendRequestsStatusEnum.PENDING,
     );
+
+    if (!curr) {
+      curr = user.friendRequests?.find(
+        ({to, from}) => to === _id || from === _id,
+      );
+    }
     if (!curr)
       return {
         ...base,
@@ -48,54 +56,73 @@ const FriendRequestHandler = ({id: _id}: Props) => {
       return {
         label: t('approve'),
         label2: t('decline'),
-        cb: () => dispatch(approveFriendRequestAction(_id)),
-        cb2: () => dispatch(declineFriendRequestAction(_id)),
+        cb: () =>
+          dispatch(
+            approveFriendRequestAction({
+              friendUserId: _id,
+              friendRequestId: curr!._id,
+            }),
+          ),
+        cb2: () => dispatch(declineFriendRequestAction(curr!._id)),
       };
     }
     return {
-      label: t('declined'),
+      label: t('addFriend'),
+      cb: () => dispatch(addFriendAction(_id)),
     };
   }, [user, _id, dispatch, t]);
 
   if (!friendRequestMeta.cb) {
-    return (
-      <MainBtn style={styles.btn} disabled={true}>
-        {friendRequestMeta.label}
-      </MainBtn>
-    );
+    return <StyledBtn disabled={true}>{friendRequestMeta.label}</StyledBtn>;
   }
 
   if (friendRequestMeta.label2 && friendRequestMeta.cb2) {
     return (
       <View>
-        <MainBtn
-          style={styles.btn}
-          disabled={loadingAuth}
-          onPress={friendRequestMeta.cb}>
+        <StyledBtn disabled={loadingAuth} onPress={friendRequestMeta.cb}>
           {friendRequestMeta.label}
-        </MainBtn>
-        <MainBtn
-          style={styles.btn}
+        </StyledBtn>
+        <StyledBtn
+          isNegative
           disabled={loadingAuth}
           onPress={friendRequestMeta.cb2}>
           {friendRequestMeta.label2}
-        </MainBtn>
+        </StyledBtn>
       </View>
     );
   }
 
   return (
-    <MainBtn
-      style={styles.btn}
-      disabled={loadingAuth}
-      onPress={friendRequestMeta.cb}>
+    <StyledBtn disabled={loadingAuth} onPress={friendRequestMeta.cb}>
       {friendRequestMeta.label}
-    </MainBtn>
+    </StyledBtn>
   );
 };
 
 export default FriendRequestHandler;
 
+const StyledBtn = ({
+  disabled,
+  onPress,
+  children,
+  isNegative,
+}: MainBtnProps & {isNegative?: boolean}) => {
+  const {colors} = useAppSelector(state => state.styles);
+
+  return (
+    <MainBtn
+      {...{disabled, onPress}}
+      style={{
+        ...styles.btn,
+        ...{backgroundColor: isNegative ? colors.RED : colors.GREEN_PRIMARY},
+      }}
+      textStyle={{...fontS(10), ...styles.textCenter}}>
+      {children}
+    </MainBtn>
+  );
+};
+
 const styles = StyleSheet.create({
-  btn: {borderRadius: 10, height: 40, width: 80},
+  btn: {borderRadius: 10, height: 30, width: 40, marginVertical: 2},
+  textCenter: {textAlign: 'center'},
 });

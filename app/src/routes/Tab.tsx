@@ -1,6 +1,11 @@
 import React, {useMemo} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {IFriendRequest, FriendsStackParamList, TabsParamList} from '../types';
+import {
+  IFriendRequest,
+  FriendsStackParamList,
+  TabsParamList,
+  IUser,
+} from '../types';
 import HomeScreen from '../screens/Home/Home';
 import Social from '../screens/Social/Social';
 import Settings from '../screens/Settings/Settings';
@@ -12,7 +17,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AddFriend from '../screens/AddFriend/AddFriend';
 import {useEffect} from 'react';
 import {socketController} from '../api';
-import {addFriendRequest} from '../redux/slices';
+import {addFriendRequest, setUser} from '../redux/slices';
+import FriendRequests from '../screens/FriendRequests/FriendRequests';
 
 const BottomTabNavigator = createBottomTabNavigator<TabsParamList>();
 const FriendsStackNavigator = createStackNavigator<FriendsStackParamList>();
@@ -22,6 +28,10 @@ const FriendsStack = (): JSX.Element => {
     <FriendsStackNavigator.Navigator screenOptions={{headerShown: false}}>
       <FriendsStackNavigator.Screen name="Social" component={Social} />
       <FriendsStackNavigator.Screen name="AddFriend" component={AddFriend} />
+      <FriendsStackNavigator.Screen
+        name="FriendRequests"
+        component={FriendRequests}
+      />
     </FriendsStackNavigator.Navigator>
   );
 };
@@ -35,8 +45,15 @@ const Tab = (): JSX.Element => {
     socketController.subscribe<IFriendRequest>(
       'newFriendRequest',
       (friendRequest: IFriendRequest) => {
-        console.log('hereelcldcldm');
         dispatch(addFriendRequest(friendRequest));
+      },
+    );
+    socketController.subscribe<IUser>(
+      'friendRequestApproved',
+      (friendRequest: IUser) => {
+        console.log('here');
+
+        dispatch(setUser(friendRequest));
       },
     );
   }, [dispatch]);

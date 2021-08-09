@@ -129,7 +129,7 @@ const Settings = (): JSX.Element => {
           />
         </WidthContainer>
         <MainBtn
-          style={{backgroundColor: colors.RED}}
+          style={{backgroundColor: colors.RED, ...styles.minusZIndex}}
           loading={loadingAuth}
           onPress={() => dispatch(logoutAction())}>
           {t('logout')}
@@ -149,6 +149,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 5,
   },
-
+  minusZIndex: {zIndex: -10},
   changeUserNameTxt: {fontSize: 10},
 });

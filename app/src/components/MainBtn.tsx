@@ -10,7 +10,7 @@ import {
 import {useAppSelector} from '../hooks';
 import {Maybe} from '../types';
 
-interface Props {
+export interface Props {
   style?: ViewStyle;
   textStyle?: TextStyle;
   onPress?: () => void;

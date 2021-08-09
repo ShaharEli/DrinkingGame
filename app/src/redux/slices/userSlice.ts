@@ -1,6 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {IFriendRequest, IUser, Maybe, PassAndEmail} from '../../types';
+import {
+  IApproveFriendRequestPayload,
+  IFriendRequest,
+  IUser,
+  Maybe,
+  PassAndEmail,
+} from '../../types';
 import {
   loginWithToken as initialLogin,
   register,
@@ -43,7 +49,7 @@ export const addFriendAction = createAsyncThunk<Maybe<IFriendRequest>, string>(
 
 export const approveFriendRequestAction = createAsyncThunk<
   Maybe<IUser>,
-  string
+  IApproveFriendRequestPayload
 >(
   'user/approveFriendRequestAction',
   async payload => await approveFriendRequest(payload),
@@ -73,6 +79,9 @@ const userSlice = createSlice({
         ...state.user.friendRequests,
         action.payload,
       ];
+    },
+    setUser<IUser>(state, action: PayloadAction<IUser>) {
+      state.user = action.payload;
     },
   },
 
@@ -175,4 +184,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const {addFriendRequest} = userSlice.actions;
+export const {addFriendRequest, setUser} = userSlice.actions;

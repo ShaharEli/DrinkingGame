@@ -24,16 +24,12 @@ export interface IUser {
   firebaseToken?: string;
   role: UserRole;
   blocked: IUser[] | string[];
-  friends: IUser[] | string[];
+  // eslint-disable-next-line no-use-before-define
+  friends: IFriend[] | string[];
   isVerified: boolean;
   password?: string;
 }
 
-export type IUserKeys = keyof IUser;
-
-type UserDocCompose = Omit<IUser, '_id'>;
-
-export interface IUserDoc extends Document, UserDocCompose {}
 export type IFriend = Omit<
   IUser,
   | 'friends'
@@ -44,3 +40,9 @@ export type IFriend = Omit<
   | 'language'
   | 'updatedAt'
 >;
+
+export type IUserKeys = keyof IUser;
+
+type UserDocCompose = Omit<IUser, '_id'>;
+
+export interface IUserDoc extends Document, UserDocCompose {}

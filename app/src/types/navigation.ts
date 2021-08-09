@@ -10,6 +10,7 @@ export type PublicStackParamList = {
 export type FriendsStackParamList = {
   AddFriend: undefined;
   Social: undefined;
+  FriendRequests: undefined;
 };
 
 export type PrivateStackParamList = {

@@ -1,5 +1,11 @@
 import Snackbar from 'react-native-snackbar';
-import {IFriend, IFriendRequest, IUser, Maybe} from '../types';
+import {
+  IApproveFriendRequestPayload,
+  IFriend,
+  IFriendRequest,
+  IUser,
+  Maybe,
+} from '../types';
 import {logger} from '../utils';
 import securedFetch from './privateFetch';
 const BASE = '/friends';
@@ -12,6 +18,26 @@ export const searchFriends = async (
     const friends = await securedFetch<IFriend[]>(`${BASE}/search`, 'POST', {
       friendUserName,
     });
+    return friends;
+  } catch (err) {
+    logger.error(err);
+    return [];
+  }
+};
+
+export const getFriendsList = async (
+  friendsArr: string[],
+): Promise<IFriend[]> => {
+  if (!friendsArr || !Array.isArray(friendsArr) || !friendsArr.length)
+    return [];
+  try {
+    const friends = await securedFetch<IFriend[]>(
+      `${BASE}/search-from-arr`,
+      'POST',
+      {
+        friendsArr,
+      },
+    );
     return friends;
   } catch (err) {
     logger.error(err);
@@ -40,15 +66,17 @@ export const addFriend = async (
   }
 };
 
-export const approveFriendRequest = async (
-  friendUserId: string,
-): Promise<Maybe<IUser>> => {
+export const approveFriendRequest = async ({
+  friendUserId,
+  friendRequestId,
+}: IApproveFriendRequestPayload): Promise<Maybe<IUser>> => {
   try {
     return await securedFetch<IUser>(
       `${BASE}/approve-friend-request`,
       'PATCH',
       {
         friendUserId,
+        friendRequestId,
       },
     );
   } catch (err) {
@@ -58,14 +86,14 @@ export const approveFriendRequest = async (
 };
 
 export const declineFriend = async (
-  friendUserId: string,
+  friendRequestId: string,
 ): Promise<Maybe<IFriendRequest>> => {
   try {
     return await securedFetch<IFriendRequest>(
-      `${BASE}/new-friend-request`,
+      `${BASE}/decline-friend-request`,
       'PATCH',
       {
-        friendUserId,
+        friendRequestId,
       },
     );
   } catch (err) {
