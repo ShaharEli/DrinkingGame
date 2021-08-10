@@ -11,3 +11,6 @@ export const titelize = (s: string) =>
     .split(' ')
     .map(w => w[0].toUpperCase() + w.substr(1).toLowerCase())
     .join(' ');
+
+export const arrToObj = arr =>
+  arr.reduce((acc, curr) => ({...acc, ...curr}), {});

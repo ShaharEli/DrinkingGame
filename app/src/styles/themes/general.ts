@@ -114,6 +114,17 @@ const flex4: ViewStyle = {
 const flex5: ViewStyle = {
   flex: 5,
 };
+const shadow: ViewStyle = {
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
+
+  elevation: 5,
+};
 const ps0: ViewStyle = {
   paddingStart: 0,
 };
@@ -441,6 +452,7 @@ export default {
   mt10,
   mb1,
   mb2,
+  shadow,
   mb3,
   mb4,
   mb5,

@@ -8,3 +8,4 @@ export * from './autoBind';
 export * from './cache';
 export * from './assets';
 export * from './friends';
+export * from './animations';

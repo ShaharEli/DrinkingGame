@@ -39,3 +39,15 @@ export const calcLastConnected = (date: Date): string =>
     lastWeek: 'MM dd, YYYY',
     sameElse: 'MM dd, YYYY',
   });
+
+export const greeting = () => {
+  const hour = moment().hour();
+
+  if (hour > 17) {
+    return 'goodEvening';
+  }
+  if (hour > 12) {
+    return 'goodAfternoon';
+  }
+  return 'goodMorning';
+};

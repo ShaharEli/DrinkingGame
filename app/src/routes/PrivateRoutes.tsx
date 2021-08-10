@@ -1,11 +1,13 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {PrivateStackParamList} from '../types';
-import Game from '../screens/Game/Game';
+import LocalGame from '../screens/LocalGame/LocalGame';
 import Tab from './Tab';
 import {useEffect} from 'react';
 import {socketController} from '../api';
 import {AppState} from 'react-native';
+import CreateGame from '../screens/CreateGame/CreateGame';
+import OnlineGame from '../screens/OnlineGame/OnlineGame';
 
 const Stack = createStackNavigator<PrivateStackParamList>();
 
@@ -38,8 +40,18 @@ const PrivateRoutes = (): JSX.Element => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="Game"
-        component={Game}
+        name="LocalGame"
+        component={LocalGame}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="OnlineGame"
+        component={OnlineGame}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreateGame"
+        component={CreateGame}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

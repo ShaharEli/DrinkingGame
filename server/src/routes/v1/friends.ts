@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { withTryCatch } from '../../utils';
-import { checkToken } from '../../middelwares';
 import {
   searchFriends,
   approveFriendRequest,
@@ -13,7 +12,6 @@ require('dotenv').config();
 
 const friendsRouter = Router();
 
-friendsRouter.use(checkToken);
 friendsRouter.post('/search', (req, res) =>
   withTryCatch(req, res, searchFriends)
 );

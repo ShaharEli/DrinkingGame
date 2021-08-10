@@ -3,4 +3,5 @@ export * from './common';
 export * from './tokens';
 export * from './error';
 export * from './dare';
+export * from './game';
 export * from './friendRequest';

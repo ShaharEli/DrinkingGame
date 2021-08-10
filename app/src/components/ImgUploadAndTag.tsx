@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const Game = () => {
+const ImgUploadAndTag = () => {
   return (
     <View>
       <Text />
@@ -9,4 +9,4 @@ const Game = () => {
   );
 };
 
-export default Game;
+export default ImgUploadAndTag;

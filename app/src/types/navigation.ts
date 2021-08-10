@@ -1,6 +1,7 @@
 // import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {CompositeNavigationProp} from '@react-navigation/native';
 
 export type PublicStackParamList = {
   Login: undefined;
@@ -14,8 +15,10 @@ export type FriendsStackParamList = {
 };
 
 export type PrivateStackParamList = {
-  Game: undefined;
+  LocalGame: undefined;
+  OnlineGame: undefined;
   Tabs: undefined;
+  CreateGame: undefined;
 };
 
 export type TabsParamList = {
@@ -24,18 +27,27 @@ export type TabsParamList = {
   FriendsStack: undefined;
 };
 
-export type GameScreenNavigationProp = StackNavigationProp<
+export type LocalGameScreenNavigationProp = StackNavigationProp<
   PrivateStackParamList,
-  'Game'
+  'LocalGame'
+>;
+export type OnlineGameScreenNavigationProp = StackNavigationProp<
+  PrivateStackParamList,
+  'OnlineGame'
+>;
+
+export type CreateGameNavigationProp = StackNavigationProp<
+  PrivateStackParamList,
+  'CreateGame'
 >;
 export type TabsScreenNavigationProp = StackNavigationProp<
   PrivateStackParamList,
   'Tabs'
 >;
 
-export type HomeScreenNavigationProp = BottomTabNavigationProp<
-  TabsParamList,
-  'Home'
+export type HomeScreenNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabsParamList, 'Home'>,
+  StackNavigationProp<PrivateStackParamList>
 >;
 
 export type SettingsScreenNavigationProp = BottomTabNavigationProp<

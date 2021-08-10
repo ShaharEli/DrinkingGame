@@ -110,7 +110,7 @@ export const register = async (payload: Partial<IUser>): LoginReturnType => {
   } catch (e) {
     if (e?.error) {
       Snackbar.show({
-        text: e.error,
+        text: e.error, //TODO translate
         duration: Snackbar.LENGTH_SHORT,
       });
     }
