@@ -6,7 +6,11 @@ import MainBtn from '../../components/MainBtn';
 import {Color, Lang, Maybe} from '../../types';
 import {useTranslation} from 'react-i18next';
 import {switchLanguage} from '../../i18n';
-import {editUserData, logoutAction, toggleTheme} from '../../redux/slices';
+import {
+  editUserDataAction,
+  logoutAction,
+  toggleThemeAction,
+} from '../../redux/actions';
 import Txt from '../../components/Txts/Txt';
 import {ScrollView, StyleSheet} from 'react-native';
 import OutlinedTextField from '../../components/OutlinedTextField';
@@ -51,7 +55,7 @@ const Settings = (): JSX.Element => {
 
   useEffect(() => {
     if (img === user.avatar || loadingAuth) return;
-    dispatch(editUserData({avatar: img}));
+    dispatch(editUserDataAction({avatar: img}));
   }, [img, user, dispatch, loadingAuth]);
 
   const userNameError = useMemo<boolean>(
@@ -79,7 +83,7 @@ const Settings = (): JSX.Element => {
             ...rootStyles.mt3,
           }}
           onPress={() => {
-            dispatch(toggleTheme());
+            dispatch(toggleThemeAction());
           }}>
           {t('toggleTheme', {theme: t(theme === 'dark' ? 'light' : 'dark')})}
         </MainBtn>
@@ -110,7 +114,7 @@ const Settings = (): JSX.Element => {
             style={styles.changeUserNameBtn}
             textStyle={styles.changeUserNameTxt}
             disabled={!userNameValid}
-            onPress={() => dispatch(editUserData({userName}))}
+            onPress={() => dispatch(editUserDataAction({userName}))}
             loading={loading || (loadingAuth && userName !== user.userName)}>
             {t('changeUserName')}
           </MainBtn>

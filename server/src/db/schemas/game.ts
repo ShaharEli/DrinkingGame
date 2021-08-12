@@ -9,6 +9,11 @@ const gameDbSchema: Schema = new mongoose.Schema(
       default: 'local',
       required: true,
     },
+    creator: {
+      ref: 'User',
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
     imgs: {
       default: [],
       ref: 'GameImg',

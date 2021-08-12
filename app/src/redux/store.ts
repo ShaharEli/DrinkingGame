@@ -1,10 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit';
 import styleReducer from './slices/stylesSlice';
 import userReducer from './slices/userSlice';
+import gameReducer from './slices/gameSlice';
 export const store = configureStore({
   reducer: {
     styles: styleReducer,
     user: userReducer,
+    game: gameReducer,
   },
 });
 

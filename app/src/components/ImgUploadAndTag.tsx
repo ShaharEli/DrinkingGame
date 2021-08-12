@@ -1,10 +1,14 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const ImgUploadAndTag = () => {
+interface Props {
+  dareId: string;
+}
+
+const ImgUploadAndTag = ({dareId}: Props) => {
   return (
     <View>
-      <Text />
+      <Text>{dareId}</Text>
     </View>
   );
 };

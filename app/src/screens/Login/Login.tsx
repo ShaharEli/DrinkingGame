@@ -7,7 +7,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {emailReg, MAX_HEIGHT} from '../../utils';
 import {Divider, Logo, WidthContainer} from '../../styles/styleComponents';
 import OutlinedTextField from '../../components/OutlinedTextField';
-import {loginWithPass} from '../../redux/slices';
+import {loginWithPassAction} from '../../redux/actions';
 import {ILoginErrors, LoginScreenNavigationProp} from '../../types';
 import MainBtn from '../../components/MainBtn';
 import Txt from '../../components/Txts/Txt';
@@ -43,7 +43,7 @@ const Login = ({navigation}: Props) => {
 
   const login = async () => {
     if (checkErrors()) return;
-    dispatch(loginWithPass({email, password}));
+    dispatch(loginWithPassAction({email, password}));
   };
   return (
     <KeyboardAvoidingView

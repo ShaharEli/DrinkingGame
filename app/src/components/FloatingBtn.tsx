@@ -3,7 +3,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useAppSelector} from '../hooks';
 import {FLOATING_BTN_SIZE, MAX_HEIGHT} from '../utils';
 interface Props {
-  children: React.FC;
+  children: JSX.Element;
   onPress: () => void;
 }
 export default function FloatingBtn({children, onPress}: Props) {

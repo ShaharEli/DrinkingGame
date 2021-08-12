@@ -17,7 +17,7 @@ import {checkErrors} from './registerHelpers';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {bg} from '../../styles/themes/general';
-import {registerUser} from '../../redux/slices';
+import {registerUserAction} from '../../redux/actions';
 import {useTranslation} from 'react-i18next';
 import {Lang} from '../../types';
 
@@ -103,7 +103,7 @@ export default function Register() {
       lastName,
       language: i18n.language as Lang,
     };
-    dispatch(registerUser(payload));
+    dispatch(registerUserAction(payload));
   };
 
   return (

@@ -16,7 +16,7 @@ export const searchFriends = async (
 ): Promise<IFriend[]> => {
   try {
     const friends = await securedFetch<IFriend[]>(`${BASE}/search`, 'POST', {
-      friendUserName,
+      friendUserName, //TODO change to get request
     });
     return friends;
   } catch (err) {

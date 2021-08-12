@@ -23,7 +23,7 @@ This app is open to contributions, but I recommend to check before the to do lis
   - [ ] migration to react natvigation X6
 - Components:
   - [ ] add loading animation
-  - [ ] add notification badge
+  - [x] add notification badge
   - [ ] add underline textfield
 - Social:
   - Add more dares suggestions here [dares seeder](https://drinkinggameseeder.herokuapp.com/)
@@ -38,8 +38,12 @@ This app is open to contributions, but I recommend to check before the to do lis
   - [ ] do alert or screen to insure email verification
   - [ ] add labels to pull request
   - [ ] add github workflow for building the app and saving it to the artifacts
+  - [ ] add swagger
+  - [ ] add docker file and docker compose
 - Assets:
   - [ ] use react-native-fs to manage saved assets
 - Languages:
   - [ ] Add more languages
   - [ ] Add errors translations
+- Packages:
+  - [ ] switch moment to dayjs

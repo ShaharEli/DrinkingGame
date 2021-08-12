@@ -1,11 +1,10 @@
-import { Document } from 'mongoose';
-import { IFriend } from './user';
+import {IFriend} from './user';
 
 export type GameType = 'online' | 'local';
 
 export interface IGame {
   type: GameType;
-  participants: IFriend[] | string[];
+  participants: IFriend[];
   imgs: string[];
   _id: string;
   updatedAt: Date;
@@ -23,6 +22,18 @@ export interface IGameImg {
   dareId: string;
 }
 
-export interface IGameImgDoc extends Document, Omit<IGameImg, '_id'> {}
+export interface IParticipantsPayload {
+  participants: string[];
+  gameId: string;
+}
+export interface IGamePayload {
+  participants: string[];
+  type: GameType;
+}
 
-export interface IGameDoc extends Document, Omit<IGame, '_id'> {}
+export interface IGameImgPayload {
+  gameId: string;
+  dareId: string;
+  img: string;
+  tagged?: string[];
+}

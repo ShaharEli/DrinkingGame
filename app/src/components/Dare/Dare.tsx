@@ -2,17 +2,26 @@ import React from 'react';
 import {useMemo} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {useAppSelector} from '../../hooks';
-import {IDare} from '../../types';
+import {IDare, Maybe} from '../../types';
 import {assets, composeAnimations, fadeIn, scale} from '../../utils';
 import Txt from '../Txts/Txt';
 import * as Animatable from 'react-native-animatable';
 import {useRef} from 'react';
 import {useEffect} from 'react';
+import ImgUploadAndTag from '../ImgUploadAndTag';
 
 interface Props {
   dare: IDare;
+  gameId: string;
+  participants: Maybe<string[]>;
+  gameType;
 }
-const Dare = ({dare: {_id, img, punishment, type, text}}: Props) => {
+const Dare = ({
+  dare: {_id, img, punishment, type, text},
+}: // gameId,
+// gameType,
+// participants,
+Props) => {
   const imgAsset = useMemo(() => {
     if (img) return {uri: img};
     if (type === 'question') return assets.questionMark;
@@ -24,7 +33,7 @@ const Dare = ({dare: {_id, img, punishment, type, text}}: Props) => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    if (!dareContainerRef?.current) return; //@ts-ignore
+    if (!dareContainerRef?.current) return; //@ts-ignore //TODO: remove when animate will be added to typing follow: https://github.com/oblador/react-native-animatable/issues/328
     dareContainerRef.current.animate(composeAnimations(fadeIn, scale));
   }, [dareContainerRef, _id]);
 
@@ -47,6 +56,7 @@ const Dare = ({dare: {_id, img, punishment, type, text}}: Props) => {
       <Txt style={[rootStyles.alignSelfCenter, rootStyles.h3]}>
         or: {punishment}
       </Txt>
+      <ImgUploadAndTag dareId={_id} />
     </Animatable.View>
   );
 };

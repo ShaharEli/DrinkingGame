@@ -17,6 +17,11 @@ const gameImgDbSchema: Schema = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       default: [],
     },
+    dareId: {
+      ref: 'Dare',
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
   },
   { timestamps: true }
 );
@@ -27,6 +32,6 @@ gameImgDbSchema.set('toJSON', {
   },
 });
 
-const GameImg = mongoose.model<IGameImg>('Game', gameImgDbSchema);
+const GameImg = mongoose.model<IGameImg>('GameImg', gameImgDbSchema);
 
 export default GameImg;

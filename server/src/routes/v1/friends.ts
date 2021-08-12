@@ -7,10 +7,12 @@ import {
   addFriend,
   searchFromArr,
 } from '../../controllers/friends';
+import { checkToken } from '../../middelwares';
 
 require('dotenv').config();
 
 const friendsRouter = Router();
+friendsRouter.use(checkToken);
 
 friendsRouter.post('/search', (req, res) =>
   withTryCatch(req, res, searchFriends)

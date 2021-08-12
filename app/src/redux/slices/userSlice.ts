@@ -1,67 +1,16 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import {IUser} from '../../types';
+import {socketController} from '../../api';
 import {
-  IApproveFriendRequestPayload,
-  IFriendRequest,
-  IUser,
-  Maybe,
-  PassAndEmail,
-} from '../../types';
-import {
-  loginWithToken as initialLogin,
-  register,
-  loginByPass as login,
-  editUser,
-  logout,
-  socketController,
-  addFriend,
-  approveFriendRequest,
-  declineFriend,
-} from '../../api';
-
-export const loginWithToken = createAsyncThunk<Maybe<IUser>>(
-  'user/loginWithToken',
-  async () => await initialLogin(),
-);
-
-export const logoutAction = createAsyncThunk<boolean>(
-  'user/logoutAction',
-  async () => await logout(),
-);
-export const loginWithPass = createAsyncThunk<Maybe<IUser>, PassAndEmail>(
-  'user/loginWithPass',
-  async payload => await login(payload),
-);
-export const registerUser = createAsyncThunk<Maybe<IUser>, Partial<IUser>>(
-  'user/registerUser',
-  async payload => await register(payload),
-);
-
-export const editUserData = createAsyncThunk<Maybe<IUser>, Partial<IUser>>(
-  'user/editUserData',
-  async payload => await editUser(payload),
-);
-
-export const addFriendAction = createAsyncThunk<Maybe<IFriendRequest>, string>(
-  'user/addFriendAction',
-  async payload => await addFriend(payload),
-);
-
-export const approveFriendRequestAction = createAsyncThunk<
-  Maybe<IUser>,
-  IApproveFriendRequestPayload
->(
-  'user/approveFriendRequestAction',
-  async payload => await approveFriendRequest(payload),
-);
-
-export const declineFriendRequestAction = createAsyncThunk<
-  Maybe<IFriendRequest>,
-  string
->(
-  'user/declineFriendRequestAction',
-  async payload => await declineFriend(payload),
-);
+  addFriendAction,
+  approveFriendRequestAction,
+  declineFriendRequestAction,
+  editUserDataAction,
+  loginWithPassAction,
+  loginWithTokenAction,
+  logoutAction,
+  registerUserAction,
+} from '../actions';
 
 const userSlice = createSlice({
   name: 'user',
@@ -86,21 +35,21 @@ const userSlice = createSlice({
   },
 
   extraReducers: builder => {
-    builder.addCase(loginWithToken.fulfilled, (state, action) => {
+    builder.addCase(loginWithTokenAction.fulfilled, (state, action) => {
       if (action.payload) {
         state.user = action.payload;
         state.isSignedIn = true;
       }
       state.loadingAuth = false;
     });
-    builder.addCase(registerUser.fulfilled, (state, action) => {
+    builder.addCase(registerUserAction.fulfilled, (state, action) => {
       if (action.payload) {
         state.user = action.payload;
         state.isSignedIn = true;
       }
       state.loadingAuth = false;
     });
-    builder.addCase(loginWithPass.fulfilled, (state, action) => {
+    builder.addCase(loginWithPassAction.fulfilled, (state, action) => {
       if (action.payload) {
         state.user = action.payload;
         state.isSignedIn = true;
@@ -108,7 +57,7 @@ const userSlice = createSlice({
       state.loadingAuth = false;
     });
 
-    builder.addCase(editUserData.fulfilled, (state, action) => {
+    builder.addCase(editUserDataAction.fulfilled, (state, action) => {
       if (action.payload) {
         state.user = action.payload;
       }
@@ -163,13 +112,13 @@ const userSlice = createSlice({
       state.loadingAuth = true;
     });
 
-    builder.addCase(loginWithToken.pending, state => {
+    builder.addCase(loginWithTokenAction.pending, state => {
       state.loadingAuth = true;
     });
-    builder.addCase(registerUser.pending, state => {
+    builder.addCase(registerUserAction.pending, state => {
       state.loadingAuth = true;
     });
-    builder.addCase(loginWithPass.pending, state => {
+    builder.addCase(loginWithPassAction.pending, state => {
       state.loadingAuth = true;
     });
 
@@ -177,7 +126,7 @@ const userSlice = createSlice({
       state.loadingAuth = true;
     });
 
-    builder.addCase(editUserData.pending, state => {
+    builder.addCase(editUserDataAction.pending, state => {
       state.loadingAuth = true;
     });
   },

@@ -5,3 +5,4 @@ export * from './formatters.util';
 export * from './mail.util';
 export * from './tokens.util';
 export * from './withTryCatch.util';
+export * from './sockets.util';
