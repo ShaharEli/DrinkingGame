@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Game from '../db/schemas/game';
 import GameImg from '../db/schemas/gameImg';
-import { IUser, Maybe } from '../types';
+import { IFriend, IUser, Maybe } from '../types';
 import { createError, friendsFields, getSocketList } from '../utils';
 
 const getFormattedParticipants = (participants: Maybe<Partial<IUser>>[]) =>
@@ -18,14 +18,19 @@ export const createGame = async (req: Request, res: Response) => {
   const formattedParticipants = getFormattedParticipants(participants);
 
   const gameToCreate = {
-    participants: formattedParticipants,
+    participants: [...formattedParticipants, req.userId!],
     type,
     creator: req.userId!,
   };
-  const newGame = (await new Game(gameToCreate).save()).populate({
-    path: 'participants',
-    select: friendsFields,
-  });
+  const newGame = await (
+    await new Game(gameToCreate).save()
+  )
+    .populate({
+      path: 'participants',
+      select: friendsFields,
+    })
+    .execPopulate();
+
   const io = req.app.get('socketio');
   io.to(getSocketList(participants, req.userId!)).emit('newGame', newGame);
   res.json(newGame);
@@ -67,6 +72,13 @@ export const removeParticipantsFromGame = async (
     { new: true }
   ).populate({ path: 'participants', select: friendsFields });
   if (!updatedGame) return createError('invalid id', 400);
+
+  const io = req.app.get('socketio');
+
+  io.to(getSocketList(updatedGame.participants as IFriend[], req.userId!)).emit(
+    'newGame',
+    updatedGame
+  );
   res.json(updatedGame);
 };
 
@@ -83,16 +95,46 @@ export const uploadGameImg = async (req: Request, res: Response) => {
 
   const leanImg = newImg.toJSON();
 
-  await Game.findByIdAndUpdate(
+  const newGame = await Game.findByIdAndUpdate(
     gameId,
     {
       $addToSet: { imgs: leanImg._id },
     },
     { new: true }
-  );
+  )
+    .populate({
+      path: 'participants',
+      select: friendsFields,
+    })
+    .lean();
+  if (!newGame) return createError('invalid game', 400);
 
   const io = req.app.get('socketio');
 
-  io.emit('gameImgAdded', leanImg);
+  io.to(getSocketList(newGame.participants as IFriend[], req.userId!)).emit(
+    'newGame',
+    newGame
+  );
+
+  io.to(getSocketList(newGame.participants as IFriend[])).emit(
+    'gameImgAdded',
+    leanImg
+  );
   res.json({ added: true });
+};
+
+export const getGame = async (req: Request, res: Response) => {
+  const { id } = req.query;
+
+  if (!id) {
+    return createError('id missing', 400);
+  }
+  const game = await Game.findById(id).populate({
+    path: 'participants',
+    select: friendsFields,
+  });
+  if (!game) {
+    return createError('game not found', 404);
+  }
+  res.json(game);
 };

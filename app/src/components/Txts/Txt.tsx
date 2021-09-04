@@ -16,7 +16,7 @@ const Txt = ({style, children, size, color, onPress}: Props): JSX.Element => {
 
   const renderStyle = useMemo(() => {
     const fontSize = size ? {fontSize: size} : {};
-    const txtColor = color ? {color} : font(colors);
+    const txtColor = color ? {color: colors[color]} : font(colors);
     const baseStyle = {textAlign: 'left' as const};
     if (!style) return [txtColor, fontSize, baseStyle];
     return Array.isArray(style)

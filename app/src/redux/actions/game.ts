@@ -11,10 +11,11 @@ import {
   addParticipantsToGame,
   removeParticipantsFromGame,
   addImgToDare,
+  fetchGame,
 } from '../../api';
 
 export const createGameAction = createAsyncThunk<Maybe<IGame>, IGamePayload>(
-  'user/createGameAction',
+  'game/createGameAction',
   async payload => await createGame(payload),
 );
 
@@ -22,7 +23,7 @@ export const addParticipantsToGameAction = createAsyncThunk<
   Maybe<IGame>,
   IParticipantsPayload
 >(
-  'user/addParticipantsToGameAction',
+  'game/addParticipantsToGameAction',
   async payload => await addParticipantsToGame(payload),
 );
 
@@ -30,11 +31,16 @@ export const removeParticipantsFromGameAction = createAsyncThunk<
   Maybe<IGame>,
   IParticipantsPayload
 >(
-  'user/removeParticipantsFromGameAction',
+  'game/removeParticipantsFromGameAction',
   async payload => await removeParticipantsFromGame(payload),
 );
 
 export const addImgToDareAction = createAsyncThunk<
   Maybe<IGame>,
   IGameImgPayload
->('user/addImgToDareAction', async payload => await addImgToDare(payload));
+>('game/addImgToDareAction', async payload => await addImgToDare(payload));
+
+export const fetchGameAction = createAsyncThunk<
+  Maybe<IGame>,
+  Pick<IGame, '_id'>
+>('game/fetchGameAction', async payload => await fetchGame(payload));

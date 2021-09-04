@@ -1,6 +1,9 @@
 import { IUser, Maybe } from '../types';
 
-export const getSocketList = (users: Maybe<Partial<IUser>>[], user: string) => {
+export const getSocketList = (
+  users: Maybe<Partial<IUser>>[],
+  user?: string
+) => {
   users
     .map((p) => {
       if (!p) return null;

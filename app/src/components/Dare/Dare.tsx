@@ -2,7 +2,7 @@ import React from 'react';
 import {useMemo} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {useAppSelector} from '../../hooks';
-import {IDare, Maybe} from '../../types';
+import {IDare, IFriend} from '../../types';
 import {assets, composeAnimations, fadeIn, scale} from '../../utils';
 import Txt from '../Txts/Txt';
 import * as Animatable from 'react-native-animatable';
@@ -13,14 +13,12 @@ import ImgUploadAndTag from '../ImgUploadAndTag';
 interface Props {
   dare: IDare;
   gameId: string;
-  participants: Maybe<string[]>;
-  gameType;
+  participants: IFriend[];
 }
 const Dare = ({
   dare: {_id, img, punishment, type, text},
-}: // gameId,
-// gameType,
-// participants,
+}: // participants,
+// gameId,
 Props) => {
   const imgAsset = useMemo(() => {
     if (img) return {uri: img};

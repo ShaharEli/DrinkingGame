@@ -4,7 +4,7 @@ import {useAppSelector} from '../hooks';
 
 interface Props {
   cond: boolean;
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
   message?: string;
   onPress?: () => void;
   style?: ViewStyle;

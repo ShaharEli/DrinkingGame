@@ -9,8 +9,8 @@ const router = Router();
 
 router.use('/auth', authRouter);
 router.use(checkToken);
-router.use('/friends', friendsRouter);
 router.use('/dares', dareRouter);
+router.use('/friends', friendsRouter);
 router.use('/game', gameRouter);
 
 export default router;

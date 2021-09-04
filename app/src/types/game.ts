@@ -1,15 +1,18 @@
 import {IFriend} from './user';
 
-export type GameType = 'online' | 'local';
-
+ export enum GameTypes {
+  Local = 'local',
+  Online = 'online',
+}
 export interface IGame {
-  type: GameType;
+  type: `${GameTypes}`;
   participants: IFriend[];
   imgs: string[];
   _id: string;
   updatedAt: Date;
   createdAt: Date;
   creator: string;
+  status:`${GameStatuses}`; //template literal error in eslint
 }
 
 export interface IGameImg {
@@ -28,7 +31,7 @@ export interface IParticipantsPayload {
 }
 export interface IGamePayload {
   participants: string[];
-  type: GameType;
+  type:`${GameTypes}`;
 }
 
 export interface IGameImgPayload {
@@ -36,4 +39,10 @@ export interface IGameImgPayload {
   dareId: string;
   img: string;
   tagged?: string[];
+}
+
+
+export enum GameStatuses {
+  IN_PROGRESS = 'in-progress',
+  FINISHED = 'finished',
 }

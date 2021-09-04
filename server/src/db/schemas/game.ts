@@ -1,12 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
-import { IGameDoc } from '../../types';
+import { GameStatuses, GameTypes, IGameDoc } from '../../types';
 
 const gameDbSchema: Schema = new mongoose.Schema(
   {
     type: {
       type: String,
-      enum: ['online', 'local'],
-      default: 'local',
+      enum: Object.values(GameTypes),
+      default: GameTypes.Local,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: Object.values(GameStatuses),
+      default: GameStatuses.IN_PROGRESS,
       required: true,
     },
     creator: {

@@ -76,3 +76,15 @@ export const addImgToDare = async ({
     return null;
   }
 };
+
+export const fetchGame = async ({
+  _id,
+}: Pick<IGame, '_id'>): Promise<Maybe<IGame>> => {
+  try {
+    const game = await securedFetch<IGame>(`${BASE}?id=${_id}`);
+    return game;
+  } catch (err) {
+    logger.error(err);
+    return null;
+  }
+};

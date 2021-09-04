@@ -16,4 +16,5 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 0,
     'prefer-template': 2,
   },
+  ignorePatterns: ['**/*.js',"node_modules/**","src/types/game.ts"],
 };

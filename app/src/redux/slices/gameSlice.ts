@@ -6,6 +6,7 @@ import {
   addParticipantsToGameAction,
   createGameAction,
   removeParticipantsFromGameAction,
+  fetchGameAction,
 } from '../actions';
 
 const gameSlice = createSlice({
@@ -17,7 +18,7 @@ const gameSlice = createSlice({
   },
   reducers: {
     setGame<IGame>(state, action: PayloadAction<Maybe<IGame>>) {
-      state.game = action.payload;
+      state.game = action.payload ? action.payload : {};
       state.isInGame = !!action.payload;
     },
   },
@@ -41,6 +42,7 @@ const gameSlice = createSlice({
     builder.addCase(createGameAction.fulfilled, (state, action) => {
       if (action.payload) {
         state.game = action.payload;
+        state.isInGame = true;
       }
       state.loadingGame = false;
     });
@@ -51,7 +53,18 @@ const gameSlice = createSlice({
       state.loadingGame = false;
     });
 
+    builder.addCase(fetchGameAction.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.game = action.payload;
+        state.isInGame = action.payload.status === 'in-progress';
+      }
+      state.loadingGame = false;
+    });
+
     builder.addCase(addImgToDareAction.pending, state => {
+      state.loadingGame = true;
+    });
+    builder.addCase(fetchGameAction.pending, state => {
       state.loadingGame = true;
     });
 

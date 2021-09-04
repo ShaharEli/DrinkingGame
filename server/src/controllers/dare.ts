@@ -24,5 +24,5 @@ export const fetchDare = async (req: Request, res: Response) => {
   ]);
 
   if (!randomDare?.length) return createError('out of dares', 402); // TODO change status
-  res.json(randomDare[0]);
+  res.json(req.transform(randomDare[0]));
 };

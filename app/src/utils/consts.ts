@@ -12,7 +12,11 @@ export const LOGS_TO_IGNORE = [
   'SerializableStateInvariantMiddleware took',
   'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because',
 ];
-export const FLOATING_BTN_SIZE = 100;
+export enum FLOATING_BTN_SIZES {
+  SMALL = 60,
+  NORMAL = 80,
+  BIG = 100,
+}
 
 export enum FriendRequestsStatusEnum {
   PENDING = 'pending',

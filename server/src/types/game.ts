@@ -1,16 +1,23 @@
 import { Document } from 'mongoose';
 import { IFriend } from './user';
 
-export type GameType = 'online' | 'local';
-
+export enum GameStatuses {
+  IN_PROGRESS = 'in-progress',
+  FINISHED = 'finished',
+}
+export enum GameTypes {
+  Local = 'local',
+  Online = 'online',
+}
 export interface IGame {
-  type: GameType;
+  type: `${GameTypes}`;
   participants: IFriend[] | string[];
   imgs: string[];
   _id: string;
   updatedAt: Date;
   createdAt: Date;
   creator: string;
+  status: `${GameStatuses}`;
 }
 
 export interface IGameImg {
