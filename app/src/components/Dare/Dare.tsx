@@ -2,7 +2,12 @@ import React from 'react';
 import {useMemo} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {useAppSelector} from '../../hooks';
-import {IDare, IFriend} from '../../types';
+import {
+  IDare,
+  IFriend,
+  LocalGameScreenNavigationProp,
+  OnlineGameScreenNavigationProp,
+} from '../../types';
 import {assets, composeAnimations, fadeIn, scale} from '../../utils';
 import Txt from '../Txts/Txt';
 import * as Animatable from 'react-native-animatable';
@@ -14,12 +19,14 @@ interface Props {
   dare: IDare;
   gameId: string;
   participants: IFriend[];
+  navigation: LocalGameScreenNavigationProp | OnlineGameScreenNavigationProp;
 }
 const Dare = ({
   dare: {_id, img, punishment, type, text},
-}: // participants,
-// gameId,
-Props) => {
+  participants,
+  gameId,
+  navigation,
+}: Props) => {
   const imgAsset = useMemo(() => {
     if (img) return {uri: img};
     if (type === 'question') return assets.questionMark;
@@ -54,7 +61,7 @@ Props) => {
       <Txt style={[rootStyles.alignSelfCenter, rootStyles.h3]}>
         or: {punishment}
       </Txt>
-      <ImgUploadAndTag dareId={_id} />
+      <ImgUploadAndTag dareId={_id} navigation={navigation} />
     </Animatable.View>
   );
 };

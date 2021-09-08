@@ -49,7 +49,9 @@ class SocketController implements ISocketController {
   }
 
   disconnect() {
-    this.socket.disconnect();
+    if (this.socket) {
+      this.socket?.disconnect?.();
+    }
     this.socket = {} as SocketIOClient.Socket;
     this.isReady = false;
   }

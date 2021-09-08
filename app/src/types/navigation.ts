@@ -1,4 +1,4 @@
-// import {RouteProp} from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {CompositeNavigationProp} from '@react-navigation/native';
@@ -19,6 +19,7 @@ export type PrivateStackParamList = {
   OnlineGame: undefined;
   Tabs: undefined;
   CreateGame: undefined;
+  AddImgScreen: {img: string; dareId: string};
 };
 
 export type TabsParamList = {
@@ -26,6 +27,10 @@ export type TabsParamList = {
   Home: undefined;
   FriendsStack: undefined;
 };
+export type AddImageScreenRouteProps = RouteProp<
+  PrivateStackParamList,
+  'AddImgScreen'
+>;
 
 export type LocalGameScreenNavigationProp = StackNavigationProp<
   PrivateStackParamList,

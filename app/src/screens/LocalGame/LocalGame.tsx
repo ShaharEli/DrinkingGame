@@ -11,7 +11,7 @@ import {ScreenWrapper, WidthContainer} from '../../styles/styleComponents';
 import {GameTypes} from '../../types';
 import {MAX_HEIGHT} from '../../utils';
 
-const LocalGame = () => {
+const LocalGame = ({navigation}) => {
   const {rootStyles, colors} = useAppSelector(state => state.styles);
   const {game, isInGame, loadingGame} = useAppSelector(state => state.game);
   const {dare, fetchNewDare} = useDares();
@@ -42,6 +42,7 @@ const LocalGame = () => {
               dare={dare!}
               participants={game.participants}
               gameId={game._id}
+              navigation={navigation}
             />
           </View>
           <View>

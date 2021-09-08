@@ -8,6 +8,7 @@ import {socketController} from '../api';
 import {AppState} from 'react-native';
 import CreateGame from '../screens/CreateGame/CreateGame';
 import OnlineGame from '../screens/OnlineGame/OnlineGame';
+import AddImgScreen from '../screens/AddImgScreen/AddImgScreen';
 
 const Stack = createStackNavigator<PrivateStackParamList>();
 
@@ -47,6 +48,11 @@ const PrivateRoutes = (): JSX.Element => {
       <Stack.Screen
         name="OnlineGame"
         component={OnlineGame}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AddImgScreen"
+        component={AddImgScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen

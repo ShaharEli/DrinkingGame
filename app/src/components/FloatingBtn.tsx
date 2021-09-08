@@ -15,7 +15,7 @@ export default function FloatingBtn({children, onPress, size}: Props) {
       onPress={onPress}
       style={[
         styles.container,
-        {backgroundColor: colors.INDICATOR},
+        {backgroundColor: colors.GREEN_PRIMARY},
         size
           ? {
               width: FLOATING_BTN_SIZES[size],
