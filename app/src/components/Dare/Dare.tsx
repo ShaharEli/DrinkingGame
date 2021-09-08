@@ -23,8 +23,8 @@ interface Props {
 }
 const Dare = ({
   dare: {_id, img, punishment, type, text},
-  participants,
-  gameId,
+  // participants,
+  // gameId,
   navigation,
 }: Props) => {
   const imgAsset = useMemo(() => {

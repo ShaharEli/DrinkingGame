@@ -6,6 +6,7 @@ interface Props {
   img: string;
   style?: ImageStyle;
   isActive?: boolean;
+  tagged?: boolean;
 }
 
 const Avatar = ({
@@ -13,11 +14,16 @@ const Avatar = ({
   img,
   style = {},
   isActive = false,
+  tagged = false,
 }: Props): JSX.Element => {
   return (
     <View>
       <Image
-        style={[{width: size, height: size, borderRadius: size}, style]}
+        style={[
+          {width: size, height: size, borderRadius: size},
+          tagged && styles.tagged,
+          style,
+        ]}
         source={img ? {uri: img} : assets.profilePlaceholder}
       />
       {isActive && <View style={styles.onlineIndicator} />}
@@ -35,5 +41,9 @@ const styles = StyleSheet.create({
     borderRadius: ONLINE_INDICATOR_SIZE,
     backgroundColor: '#21dd21',
     position: 'absolute',
+  },
+  tagged: {
+    borderWidth: 1,
+    borderColor: 'cyan',
   },
 });

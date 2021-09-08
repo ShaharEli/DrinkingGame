@@ -24,6 +24,10 @@ declare global {
   }
 }
 
+export interface IAdded {
+  added: boolean;
+}
+
 export type LoginReturnType = Promise<Maybe<IUser>>;
 export interface PassAndEmail {
   password: string;

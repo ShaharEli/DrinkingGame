@@ -1,4 +1,4 @@
-import {Maybe} from '../types';
+import {IAdded, Maybe} from '../types';
 import {
   IGame,
   IGameImgPayload,
@@ -62,15 +62,15 @@ export const addImgToDare = async ({
   dareId,
   img,
   tagged,
-}: IGameImgPayload): Promise<Maybe<IGame>> => {
+}: IGameImgPayload): Promise<Maybe<IAdded>> => {
   try {
-    const game = await securedFetch<IGame>(`${BASE}/upload-img`, 'POST', {
+    const added = await securedFetch<IAdded>(`${BASE}/upload-img`, 'POST', {
       gameId,
       dareId,
       img,
       tagged,
     });
-    return game;
+    return added;
   } catch (err) {
     logger.error(err);
     return null;

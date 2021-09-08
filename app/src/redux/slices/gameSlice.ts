@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import Snackbar from 'react-native-snackbar';
 import {IGame, Maybe} from '../../types';
 
 import {
@@ -24,8 +25,11 @@ const gameSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(addImgToDareAction.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.game = action.payload;
+      if (!action.payload?.added) {
+        Snackbar.show({
+          text: 'Error',
+          duration: Snackbar.LENGTH_SHORT,
+        });
       }
       state.loadingGame = false;
     });

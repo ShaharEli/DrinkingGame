@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
-import {Image} from 'react-native';
-import {StyleSheet, Text, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {FlatList, Image} from 'react-native';
+import {StyleSheet} from 'react-native';
+import MainBtn from '../../components/MainBtn';
 import Tag from '../../components/Tag';
 import Title from '../../components/Txts/Title';
-import {useAppSelector} from '../../hooks';
+import Txt from '../../components/Txts/Txt';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {addImgToDareAction} from '../../redux/actions';
 import {ScreenWrapper, WidthContainer} from '../../styles/styleComponents';
 import {
   AddFriendScreenNavigationProp,
@@ -17,12 +21,22 @@ interface Props {
 
 const AddImgScreen = ({route, navigation}: Props) => {
   const {
-    game: {participants, _id, type},
+    game: {participants, _id: gameId, type},
+    loadingGame,
   } = useAppSelector(state => state.game);
+
+  const {dareId, img} = route.params;
+
+  const {rootStyles} = useAppSelector(state => state.styles);
+
+  const dispatch = useAppDispatch();
+
+  const {t} = useTranslation();
 
   const {
     user: {friends},
   } = useAppSelector(state => state.user);
+
   const [tags, setTags] = useState(() => {
     if (type === 'local') {
       return friends.map(friend => ({...friend, tagged: false}));
@@ -43,12 +57,32 @@ const AddImgScreen = ({route, navigation}: Props) => {
     <ScreenWrapper>
       <Title withGoBackIcon tKey="addImg" />
       <WidthContainer>
-        <Image source={{uri: route.params.img}} style={styles.img} />
+        <Image source={{uri: img}} style={styles.img} />
+        <Txt style={rootStyles.alignSelfCenter}>{t('tagFriend')}</Txt>
+        <FlatList
+          contentContainerStyle={rootStyles.mt3}
+          horizontal
+          data={tags}
+          keyExtractor={({_id}) => _id}
+          renderItem={({item}) => <Tag {...{...item, onPress: onTagPressed}} />}
+        />
+
+        <MainBtn
+          disabled={loadingGame}
+          onPress={() => {
+            dispatch(
+              addImgToDareAction({
+                dareId,
+                img,
+                gameId,
+                tagged: tags.filter(e => e.tagged).map(p => p._id),
+              }),
+            );
+            navigation.goBack();
+          }}>
+          {t('addImg')}
+        </MainBtn>
       </WidthContainer>
-      {tags.map(({avatar, _id, tagged}) => (
-        <Tag key={_id} {...{_id, avatar, tagged, onPress: onTagPressed}} />
-      ))}
-      <Text />
     </ScreenWrapper>
   );
 };
@@ -58,6 +92,6 @@ export default AddImgScreen;
 const styles = StyleSheet.create({
   img: {
     width: '100%',
-    height: '80%',
+    height: '65%',
   },
 });

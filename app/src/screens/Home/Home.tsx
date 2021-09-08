@@ -23,7 +23,6 @@ const Home = ({navigation}: Props): JSX.Element => {
   } = useAppSelector(state => state.user);
   const {t} = useTranslation();
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     setLoading(true);
     if (isInGame) {
@@ -45,7 +44,9 @@ const Home = ({navigation}: Props): JSX.Element => {
               game.type === 'local' ? 'LocalGame' : 'OnlineGame',
             )
           }>
-          <Txt color="BG">{t('returnToGame')}</Txt>
+          <Txt size={12} color="BG">
+            {t('returnToGame')}
+          </Txt>
         </FloatingBtn>
       )}
     </ScreenWrapper>

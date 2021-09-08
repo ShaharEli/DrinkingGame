@@ -5,6 +5,7 @@ import {
   IParticipantsPayload,
   Maybe,
   IGameImgPayload,
+  IAdded,
 } from '../../types';
 import {
   createGame,
@@ -36,7 +37,7 @@ export const removeParticipantsFromGameAction = createAsyncThunk<
 );
 
 export const addImgToDareAction = createAsyncThunk<
-  Maybe<IGame>,
+  Maybe<IAdded>,
   IGameImgPayload
 >('game/addImgToDareAction', async payload => await addImgToDare(payload));
 
